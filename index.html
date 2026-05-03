@@ -711,22 +711,50 @@ function Footer({ go, lang, areas }) {
         </div>
 
         {/* AI credit strip */}
-        <div style={{ marginTop: 24, paddingTop: 20, borderTop: '1px solid rgba(255,255,255,0.07)', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
-          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 7, fontSize: 11, letterSpacing: '0.06em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.3)' }}>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--granate-soft)', flexShrink: 0 }}>
+        <style>{`
+          @keyframes aiGradient {
+            0%   { background-position: 0% 50%; }
+            50%  { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+          }
+          @keyframes chipPulse {
+            0%, 100% { opacity: 1; filter: drop-shadow(0 0 3px #A8223A); transform: scale(1); }
+            25%       { opacity: 0.7; filter: drop-shadow(0 0 8px #c0392b); transform: scale(1.15); }
+            50%       { opacity: 1; filter: drop-shadow(0 0 12px #e74c3c); transform: scale(1.05); }
+            75%       { opacity: 0.8; filter: drop-shadow(0 0 6px #8B1A2F); transform: scale(1.1); }
+          }
+          @keyframes scanline {
+            0%   { stroke-dashoffset: 40; opacity: 0.3; }
+            50%  { stroke-dashoffset: 0;  opacity: 1; }
+            100% { stroke-dashoffset: 40; opacity: 0.3; }
+          }
+          .ai-strip {
+            background: linear-gradient(270deg, #1a0a0e, #2C2C2C, #3d1520, #1a0a0e, #0d0d0d, #3d1520);
+            background-size: 400% 400%;
+            animation: aiGradient 6s ease infinite;
+          }
+          .ai-chip { animation: chipPulse 2.8s ease-in-out infinite; }
+          .ai-scan { stroke-dasharray: 40; animation: scanline 2.8s ease-in-out infinite; }
+        `}</style>
+        <div className="ai-strip" style={{ marginTop: 24, padding: '14px 20px', borderRadius: 0, display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
+          <span className="ai-chip" style={{ display: 'inline-flex', flexShrink: 0 }}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c0392b" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
               <rect x="4" y="4" width="16" height="16" rx="2"/>
-              <rect x="9" y="9" width="6" height="6"/>
+              <rect x="9" y="9" width="6" height="6" fill="rgba(192,57,43,0.25)"/>
               <path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/>
+              <path className="ai-scan" d="M4 12h16" stroke="#e74c3c" strokeWidth="1"/>
             </svg>
+          </span>
+          <span style={{ fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.45)', fontWeight: 400 }}>
             {t.aiCredit}
           </span>
           <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.2)' }}>·</span>
-          <span style={{ fontSize: 11, letterSpacing: '0.06em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.3)' }}>
+          <span style={{ fontSize: 11, letterSpacing: '0.07em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)' }}>
             {t.aiBy}{' '}
             <a href="https://actualinternet.com" target="_blank" rel="noopener noreferrer"
-              style={{ color: 'var(--granate-soft)', fontWeight: 600, letterSpacing: '0.08em', transition: 'color .2s' }}
-              onMouseEnter={(e) => e.currentTarget.style.color = 'white'}
-              onMouseLeave={(e) => e.currentTarget.style.color = 'var(--granate-soft)'}>
+              style={{ color: '#e05050', fontWeight: 700, letterSpacing: '0.1em', transition: 'color .2s, text-shadow .2s' }}
+              onMouseEnter={(e) => { e.currentTarget.style.color = 'white'; e.currentTarget.style.textShadow = '0 0 12px rgba(192,57,43,0.8)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = '#e05050'; e.currentTarget.style.textShadow = 'none'; }}>
               actualinternet.com
             </a>
           </span>
