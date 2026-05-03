@@ -660,6 +660,50 @@ function Header({ current, go, lang, setLang, areas }) {
   );
 }
 
+// ─── BINARY RAIN ─────────────────────────────────────────────────────────────
+function BinaryRain() {
+  React.useEffect(() => {
+    const canvas = document.getElementById('ai-binary-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const strip = canvas.parentElement;
+
+    const resize = () => {
+      canvas.width = strip.offsetWidth;
+      canvas.height = strip.offsetHeight;
+    };
+    resize();
+    window.addEventListener('resize', resize);
+
+    const fontSize = 9;
+    const cols = () => Math.floor(canvas.width / (fontSize + 2));
+    let drops = Array.from({ length: cols() }, () => Math.random() * -40);
+
+    const draw = () => {
+      ctx.fillStyle = 'rgba(26,10,14,0.18)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      const n = cols();
+      if (drops.length !== n) drops = Array.from({ length: n }, () => Math.random() * -40);
+
+      ctx.font = `${fontSize}px monospace`;
+      drops.forEach((y, i) => {
+        const char = Math.random() > 0.5 ? '1' : '0';
+        const alpha = 0.35 + Math.random() * 0.5;
+        ctx.fillStyle = `rgba(192,57,43,${alpha})`;
+        ctx.fillText(char, i * (fontSize + 2), y * fontSize);
+        if (y * fontSize > canvas.height && Math.random() > 0.92) drops[i] = 0;
+        drops[i] += 0.4;
+      });
+    };
+
+    const timer = setInterval(draw, 55);
+    return () => { clearInterval(timer); window.removeEventListener('resize', resize); };
+  }, []);
+
+  return null;
+}
+
 // ─── FOOTER ───────────────────────────────────────────────────────────────────
 function Footer({ go, lang, areas }) {
   const t = TEXTS[lang];
@@ -735,9 +779,12 @@ function Footer({ go, lang, areas }) {
           }
           .ai-chip { animation: chipPulse 2.8s ease-in-out infinite; }
           .ai-scan { stroke-dasharray: 40; animation: scanline 2.8s ease-in-out infinite; }
+          .ai-canvas { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0.18; pointer-events: none; }
         `}</style>
-        <div className="ai-strip" style={{ marginTop: 24, padding: '14px 20px', borderRadius: 0, display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
-          <span className="ai-chip" style={{ display: 'inline-flex', flexShrink: 0 }}>
+        <BinaryRain />
+        <div className="ai-strip" style={{ marginTop: 24, padding: '14px 20px', borderRadius: 0, display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 12, flexWrap: 'wrap', position: 'relative', overflow: 'hidden' }}>
+          <canvas id="ai-binary-canvas" className="ai-canvas" />
+          <span className="ai-chip" style={{ display: 'inline-flex', flexShrink: 0, position: 'relative' }}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c0392b" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
               <rect x="4" y="4" width="16" height="16" rx="2"/>
               <rect x="9" y="9" width="6" height="6" fill="rgba(192,57,43,0.25)"/>
@@ -745,11 +792,11 @@ function Footer({ go, lang, areas }) {
               <path className="ai-scan" d="M4 12h16" stroke="#e74c3c" strokeWidth="1"/>
             </svg>
           </span>
-          <span style={{ fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.45)', fontWeight: 400 }}>
+          <span style={{ fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.55)', fontWeight: 400, position: 'relative' }}>
             {t.aiCredit}
           </span>
-          <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.2)' }}>·</span>
-          <span style={{ fontSize: 11, letterSpacing: '0.07em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)' }}>
+          <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.2)', position: 'relative' }}>·</span>
+          <span style={{ fontSize: 11, letterSpacing: '0.07em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.5)', position: 'relative' }}>
             {t.aiBy}{' '}
             <a href="https://actualinternet.com" target="_blank" rel="noopener noreferrer"
               style={{ color: '#e05050', fontWeight: 700, letterSpacing: '0.1em', transition: 'color .2s, text-shadow .2s' }}
