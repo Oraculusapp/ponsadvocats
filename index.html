@@ -354,16 +354,18 @@ const AREAS_DATA = {
 
 // ─── LOGO ─────────────────────────────────────────────────────────────────────
 function PonsLogo({ size = 1, light = false }) {
-  const w = 220 * size, h = 88 * size;
-  const granate = light ? '#FFFFFF' : 'var(--granate)';
-  const ink = light ? '#FFFFFF' : 'var(--ink)';
+  const h = 64 * size;
   return (
-    <svg viewBox="0 0 220 88" width={w} height={h} role="img" aria-label="Pons Advocats" style={{ display: 'block' }}>
-      <rect x="40" y="2" width="178" height="44" fill={granate} />
-      <text x="208" y="38" textAnchor="end" fontFamily="Cormorant Garamond, serif" fontWeight="400" fontSize="38" fill="#FFFFFF" fontStyle="italic" style={{ letterSpacing: '-0.02em' }}>pons</text>
-      <text x="110" y="68" textAnchor="middle" fontFamily="Inter, sans-serif" fontWeight="300" fontSize="14" fill={ink} style={{ letterSpacing: '0.42em' }}>ADVOCATS</text>
-      <rect x="20" y="80" width="180" height="1.5" fill={granate} />
-    </svg>
+    <img
+      src="LOGO PONS.jpg"
+      alt="Pons Advocats"
+      style={{
+        display: 'block',
+        height: h,
+        width: 'auto',
+        filter: light ? 'brightness(0) invert(1)' : 'none',
+      }}
+    />
   );
 }
 
