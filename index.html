@@ -364,7 +364,9 @@ function PonsLogo({ size = 1, light = false }) {
         display: 'block',
         height: h,
         width: 'auto',
-        filter: light ? 'brightness(0) invert(1)' : 'none',
+        borderRadius: light ? 4 : 0,
+        padding: light ? '6px 10px' : 0,
+        background: light ? 'rgba(255,255,255,0.92)' : 'transparent',
       }}
     />
   );
