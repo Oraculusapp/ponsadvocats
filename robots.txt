@@ -1,0 +1,18 @@
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://ponsadvocats.cat/sitemap.xml
+
+# AI crawlers — welcome
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Googlebot
+Allow: /
