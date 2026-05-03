@@ -4,83 +4,357 @@
 <meta charset="utf-8" />
 <title>Pons Advocats · Granollers</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="description" content="Despatx d'advocats a Granollers especialitzat en dret laboral, penal, familiar, civil i accidents de trànsit. Més de 40 anys d'experiència." />
+<meta name="description" content="Despatx d'advocats a Granollers especialitzat en dret laboral, penal, familiar, civil i accidents de trànsit. Más de 40 años de experiencia." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-
 <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
-
 <style>
   :root {
-    --granate: #8B1A2F;
-    --granate-soft: #A8223A;
-    --granate-deep: #6B1424;
-    --ink: #2C2C2C;
-    --ink-2: #555;
-    --ink-3: #8a8a87;
-    --paper: #FFFFFF;
-    --bone: #F5F5F3;
-    --bone-2: #ECECE7;
-    --rule: #E2E2DC;
+    --granate: #8B1A2F; --granate-soft: #A8223A; --granate-deep: #6B1424;
+    --ink: #2C2C2C; --ink-2: #555; --ink-3: #8a8a87;
+    --paper: #FFFFFF; --bone: #F5F5F3; --bone-2: #ECECE7; --rule: #E2E2DC;
     --serif: 'Cormorant Garamond', 'Times New Roman', serif;
     --sans: 'Inter', system-ui, sans-serif;
   }
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; }
-  body {
-    font-family: var(--sans);
-    color: var(--ink);
-    background: var(--paper);
-    font-size: 16px;
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
-  }
+  body { font-family: var(--sans); color: var(--ink); background: var(--paper); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; overflow-x: hidden; }
   h1, h2, h3, h4 { font-family: var(--serif); font-weight: 500; letter-spacing: -0.01em; margin: 0; line-height: 1.1; color: var(--ink); }
-  p { margin: 0; }
-  a { color: inherit; text-decoration: none; }
-  button { font-family: inherit; }
-  img { display: block; max-width: 100%; }
-
+  p { margin: 0; } a { color: inherit; text-decoration: none; } button { font-family: inherit; } img { display: block; max-width: 100%; }
   ::selection { background: var(--granate); color: white; }
-
-  .fade-in {
-    opacity: 0;
-    transform: translateY(8px);
-    animation: fadeIn .7s ease forwards;
-  }
+  .fade-in { opacity: 0; transform: translateY(8px); animation: fadeIn .7s ease forwards; }
   @keyframes fadeIn { to { opacity: 1; transform: none; } }
-
   .container { max-width: 1240px; margin: 0 auto; padding: 0 32px; }
   @media (max-width: 720px) { .container { padding: 0 20px; } }
-
-  .eyebrow {
-    font-family: var(--sans);
-    font-size: 11px;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--granate);
-    font-weight: 500;
-  }
-
+  .eyebrow { font-family: var(--sans); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--granate); font-weight: 500; }
   .page-enter { animation: pageIn .45s ease both; }
   @keyframes pageIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
-
-  body { overflow-x: hidden; }
 </style>
 </head>
 <body>
 <div id="root"></div>
-
 <script type="text/babel">
 
-// ─── LOGO ───────────────────────────────────────────────────────────────────
-function PonsLogo({ size = 1, light = false, showRule = true }) {
-  const w = 220 * size;
-  const h = 88 * size;
+// ─── TRANSLATIONS ────────────────────────────────────────────────────────────
+const TEXTS = {
+  ca: {
+    since: 'Granollers · Des de 1985',
+    heroTitle1: 'El vostre despatx',
+    heroTitle2: "d'advocats",
+    heroTitle3: 'de confiança',
+    heroLead: "Experiència, professionalitat i atenció personalitzada. Més de tres dècades acompanyant famílies i empreses del Vallès Oriental.",
+    callBtn: "Truca'ns ara · 93 870 78 59",
+    waBtn: 'WhatsApp',
+    officeLabel: 'Despatx',
+    scheduleLabel: 'Horari',
+    scheduleVal: 'Dl–Dv · 9 a 19 h',
+    scheduleVal2: 'Visita amb cita prèvia',
+    quote: 'La justícia no consisteix en ser neutral entre el bé i el mal, sinó en saber distingir-los.',
+    trustTitle1: 'Discreció', trustDesc1: 'Cada cas el tractem amb la confidencialitat que mereix.',
+    trustTitle2: 'Proximitat', trustDesc2: 'Coneixem el teu entorn. Som de Granollers, com tu.',
+    trustTitle3: 'Rigor', trustDesc3: 'Defensa tècnica fonamentada i argumentada en cada procediment.',
+    trustTitle4: 'Resultats', trustDesc4: 'Més de quaranta anys de jurisprudència favorable als clients.',
+    areasEyebrow: 'Les nostres especialitats',
+    areasTitle1: 'Cinc àrees, una',
+    areasTitle2: 'mateixa exigència',
+    areasLead: "Treballem per oferir-te una defensa jurídica integral. Selecciona l'àrea que t'afecta i descobreix com et podem ajudar.",
+    areaMore: 'Saber més',
+    areasUnsure: "No estàs segur de quina àrea correspon al teu cas?",
+    areasConsult: 'Demana una primera consulta',
+    methodEyebrow: 'El nostre mètode',
+    methodTitle1: 'Un cas, quatre',
+    methodTitle2: 'moments',
+    methodLead: "La diferència entre una bona i una mala defensa es decideix sovint en com s'afronten els primers dies. Per això tenim un mètode clar.",
+    step1t: 'Primera escolta', step1d: 'Cada cas comença amb una conversa atenta. Sense jargó, sense pressa.',
+    step2t: 'Estratègia clara', step2d: 'Definim opcions, riscos i terminis. Tu decideixes amb tota la informació.',
+    step3t: 'Defensa rigorosa', step3d: 'Tramitació, negociació i, si cal, judici. Sempre amb un advocat assignat.',
+    step4t: 'Acompanyament', step4d: 'Et mantenim informat de cada moviment fins que el cas es resol.',
+    teamEyebrow: "L'equip",
+    teamTitle1: 'Una',
+    teamTitle2: 'família',
+    teamTitle3: 'dedicada al dret.',
+    teamLead: 'Dos advocats, un mateix despatx, una mateixa exigència. Cada client té un advocat assignat des del primer minut.',
+    ctaEyebrow: 'Primera consulta',
+    ctaTitle: 'Necessites assessorament\njurídic?',
+    ctaLead: "Consulta'ns sense compromís. Et respondrem el més aviat possible.",
+    callFull: "Truca'ns · 93 870 78 59",
+    waFull: 'Escriu-nos per WhatsApp',
+    navHome: 'Inici', navContact: 'Contacte',
+    areaLabel: 'Àrea',
+    areaOf: '/ 05',
+    areaSection: "L'àrea",
+    servicesEyebrow: 'Serveis',
+    servicesTitle1: 'Com',
+    servicesTitle2: "t'ajudem",
+    nextArea: 'Següent àrea',
+    continueReading: 'Continua llegint',
+    contactEyebrow: 'Contacte',
+    contactTitle1: 'Parla amb nosaltres.',
+    contactTitle2: 'La primera consulta no costa.',
+    addressLabel: 'Adreça',
+    phoneLabel: 'Telèfon',
+    emailLabel: 'Email',
+    hoursLabel: 'Horari',
+    hoursVal: 'Dilluns a divendres',
+    hoursVal2: '9.00 — 14.00 · 16.00 — 19.00',
+    hoursNote: 'Visita amb cita prèvia recomanada.',
+    contactCta: 'Tria com prefereixes',
+    contactCta2: 'parlar amb nosaltres',
+    contactNote: "També pots passar pel despatx en horari d'atenció. Recomanem demanar cita per garantir una atenció personalitzada.",
+    footerLead: "Despatx d'advocats a Granollers. Defensem els teus drets amb experiència, rigor i proximitat.",
+    footerAreas: 'Àrees',
+    footerContact: 'Contacte',
+    footerCopy: '© 2026 Pons Advocats · Tots els drets reservats',
+    footerAddr: 'C/ Lliri, 23 · Granollers · Barcelona',
+    dretPrefix: 'Dret ',
+    mapLabel: 'Despatx',
+  },
+  es: {
+    since: 'Granollers · Desde 1985',
+    heroTitle1: 'Su despacho de',
+    heroTitle2: 'abogados',
+    heroTitle3: 'de confianza',
+    heroLead: 'Experiencia, profesionalidad y atención personalizada. Más de tres décadas acompañando a familias y empresas del Vallès Oriental.',
+    callBtn: 'Llámenos · 93 870 78 59',
+    waBtn: 'WhatsApp',
+    officeLabel: 'Despacho',
+    scheduleLabel: 'Horario',
+    scheduleVal: 'Lu–Vi · 9 a 19 h',
+    scheduleVal2: 'Visita con cita previa',
+    quote: 'La justicia no consiste en ser neutral entre el bien y el mal, sino en saber distinguirlos.',
+    trustTitle1: 'Discreción', trustDesc1: 'Cada caso lo tratamos con la confidencialidad que merece.',
+    trustTitle2: 'Proximidad', trustDesc2: 'Conocemos tu entorno. Somos de Granollers, como tú.',
+    trustTitle3: 'Rigor', trustDesc3: 'Defensa técnica fundamentada y argumentada en cada procedimiento.',
+    trustTitle4: 'Resultados', trustDesc4: 'Más de cuarenta años de jurisprudencia favorable a los clientes.',
+    areasEyebrow: 'Nuestras especialidades',
+    areasTitle1: 'Cinco áreas, la',
+    areasTitle2: 'misma exigencia',
+    areasLead: 'Trabajamos para ofrecerte una defensa jurídica integral. Selecciona el área que te afecta y descubre cómo podemos ayudarte.',
+    areaMore: 'Saber más',
+    areasUnsure: '¿No estás seguro de qué área corresponde a tu caso?',
+    areasConsult: 'Solicita una primera consulta',
+    methodEyebrow: 'Nuestro método',
+    methodTitle1: 'Un caso, cuatro',
+    methodTitle2: 'momentos',
+    methodLead: 'La diferencia entre una buena y una mala defensa se decide a menudo en cómo se afrontan los primeros días. Por eso tenemos un método claro.',
+    step1t: 'Primera escucha', step1d: 'Cada caso empieza con una conversación atenta. Sin tecnicismos, sin prisas.',
+    step2t: 'Estrategia clara', step2d: 'Definimos opciones, riesgos y plazos. Tú decides con toda la información.',
+    step3t: 'Defensa rigurosa', step3d: 'Tramitación, negociación y, si hace falta, juicio. Siempre con un abogado asignado.',
+    step4t: 'Acompañamiento', step4d: 'Te mantenemos informado de cada movimiento hasta que el caso se resuelve.',
+    teamEyebrow: 'El equipo',
+    teamTitle1: 'Una',
+    teamTitle2: 'familia',
+    teamTitle3: 'dedicada al derecho.',
+    teamLead: 'Dos abogados, un mismo despacho, la misma exigencia. Cada cliente tiene un abogado asignado desde el primer minuto.',
+    ctaEyebrow: 'Primera consulta',
+    ctaTitle: '¿Necesitas asesoramiento\njurídico?',
+    ctaLead: 'Consúltanos sin compromiso. Te responderemos lo antes posible.',
+    callFull: 'Llámenos · 93 870 78 59',
+    waFull: 'Escríbenos por WhatsApp',
+    navHome: 'Inicio', navContact: 'Contacto',
+    areaLabel: 'Área',
+    areaOf: '/ 05',
+    areaSection: 'El área',
+    servicesEyebrow: 'Servicios',
+    servicesTitle1: 'Cómo',
+    servicesTitle2: 'te ayudamos',
+    nextArea: 'Siguiente área',
+    continueReading: 'Seguir leyendo',
+    contactEyebrow: 'Contacto',
+    contactTitle1: 'Hable con nosotros.',
+    contactTitle2: 'La primera consulta no tiene coste.',
+    addressLabel: 'Dirección',
+    phoneLabel: 'Teléfono',
+    emailLabel: 'Email',
+    hoursLabel: 'Horario',
+    hoursVal: 'Lunes a viernes',
+    hoursVal2: '9.00 — 14.00 · 16.00 — 19.00',
+    hoursNote: 'Visita con cita previa recomendada.',
+    contactCta: 'Elija cómo prefiere',
+    contactCta2: 'hablar con nosotros',
+    contactNote: 'También puede pasarse por el despacho en horario de atención. Recomendamos pedir cita para garantizar una atención personalizada.',
+    footerLead: 'Despacho de abogados en Granollers. Defendemos tus derechos con experiencia, rigor y proximidad.',
+    footerAreas: 'Áreas',
+    footerContact: 'Contacto',
+    footerCopy: '© 2026 Pons Advocats · Todos los derechos reservados',
+    footerAddr: 'C/ Lliri, 23 · Granollers · Barcelona',
+    dretPrefix: 'Derecho ',
+    mapLabel: 'Despacho',
+  },
+};
+
+// ─── AREAS DATA ───────────────────────────────────────────────────────────────
+const AREAS_DATA = {
+  ca: [
+    {
+      id: 'laboral', label: 'Laboral', icon: 'doc',
+      title: 'Dret Laboral',
+      tagline: 'Defensem els teus drets com a treballador',
+      short: "Reclamació d'acomiadaments, salaris i invalideses derivades d'accidents de treball o malaltia.",
+      intro: "Expert en reclamació d'acomiadaments i indemnització per acomiadament improcedent. Reclamació de salaris. Invalideses derivades per accident de treball o per malaltia comuna. Accidents laborals.",
+      services: [
+        ["Reclamació de salaris", "Procediments per a la reclamació de salaris a l'empresari."],
+        ["Impugnació d'acomiadaments", "El treballador en desacord amb l'extinció del seu contracte laboral disposa d'un termini de 20 dies hàbils per impugnar."],
+        ["Impugnació de sancions", "El treballador pot impugnar la sanció que li hagi estat imposada mitjançant demanda."],
+        ["Reclamacions d'invalidesa", "Incapacitats i baixes laborals. Acompanyem en tot el procediment davant la Seguretat Social."],
+        ["Especialistes en accidents de treball", "Assessorament integral per als treballadors que han patit un accident laboral."],
+      ],
+      cta: "Tens un problema laboral? Contacta'ns ara.",
+    },
+    {
+      id: 'accidents', label: 'Accidents', icon: 'car',
+      title: 'Accidents de Trànsit',
+      tagline: 'Reclamem la màxima indemnització pels teus danys',
+      short: "Reclamació davant la persona causant de l'accident i la seva companyia d'assegurances.",
+      intro: "Reclamació davant de la persona causant de l'accident i de la seva companyia d'assegurances en tot tipus d'accident de circulació i atropellaments.",
+      services: [
+        ["Reclamacions de lesionats", "Per obtenir la màxima indemnització, cal fer una valoració correcta que s'adeqüi al perjudici causat al lesionat."],
+        ["Defensa de conductors", "Defensa del conductor davant un possible accident de trànsit."],
+        ["Atropellaments", "Si ets vianant i has estat atropellat, tens dret a reclamar una indemnització."],
+        ["Assistència a la via penal", "Tota l'ajuda que necessites sobre temes penals derivats de l'accident."],
+        ["Procediments civils", "Reclamació de danys i perjudicis a la via civil."],
+      ],
+      cta: "Has tingut un accident? No esperis, contacta'ns.",
+    },
+    {
+      id: 'penal', label: 'Penal', icon: 'shield',
+      title: 'Dret Penal',
+      tagline: 'La teva defensa jurídica, des del primer moment',
+      short: "Defensa de qualsevol persona imputada en un delicte: comissaria, instrucció i judici oral.",
+      intro: "Defensa jurídica de qualsevol persona que resulti imputada en un delicte, des de l'assistència a comissaria i al jutjat, durant tota la fase d'investigació del delicte i assistència al judici oral.",
+      services: [
+        ["Assistència al detingut", "T'acompanyem i assumim la teva defensa jurídica al llarg de tot el procediment penal."],
+        ["Violència domèstica", "Portem la defensa i acusació en delictes de violència domèstica, amb petició de mesures civils quan hi ha menors d'edat."],
+        ["Delictes econòmics", "Estafes, alçament de béns, apropiacions indegudes, delictes contra la hisenda pública."],
+        ["Jurisdicció de menors", "Assessorament i defensa en delictes comesos per menors d'edat penal. Especialistes en Dret del Menor."],
+        ["Altres serveis penals", "Alcoholèmies, lesions, indults i suspensió de la pena."],
+      ],
+      cta: "Et trobes en una situació difícil? Estem aquí per ajudar-te.",
+    },
+    {
+      id: 'familia', label: 'Família', icon: 'family',
+      title: 'Dret de Família',
+      tagline: 'Solucions jurídiques per als moments més difícils',
+      short: "Mediació i procediments en separacions, divorcis, custòdia i pensions d'aliments.",
+      intro: "Assessorament jurídic i mediació en temes de dret de família. Separacions, divorcis, guarda i custòdia en supòsits de parelles de fet. Buscant sempre la millor solució per a la resolució del conflicte.",
+      services: [
+        ["Separacions i divorcis", "Tota la informació i ajuda que necessites per a la teva separació i divorci."],
+        ["Custòdia dels fills", "La relació, drets i obligacions entre pares i fills. Fent prevaler la custòdia compartida."],
+        ["Assignació de vivenda familiar", "Quan hi ha fills comuns, quan no n'hi ha, si és independent o pertany a un tercer."],
+        ["Reclamació de la pensió d'aliments", "La reclamació de la pensió prescriu als tres anys des que es dicta la resolució judicial."],
+        ["Extinció de parella de fet", "Assessorament sobre els efectes de l'extinció de la parella estable."],
+        ["Divisió del patrimoni", "Assessorament en la divisió i adjudicació del patrimoni adquirit conjuntament."],
+      ],
+      cta: "Passes per un moment difícil? T'ajudem a trobar la millor solució.",
+    },
+    {
+      id: 'civil', label: 'Civil', icon: 'scales',
+      title: 'Dret Civil',
+      tagline: 'Solucions per a tot tipus de conflictes entre particulars i empreses',
+      short: "Reclamacions contractuals, herències, desnonaments, hipoteques i comunitats de propietaris.",
+      intro: "El dret civil és una branca amplíssima del nostre dret on hi caben tot tipus de reclamacions contractuals i extracontractuals.",
+      services: [
+        ["Desnonaments", "Procés sumari per al llançament de qui posseeix béns aliens com a arrendatari, dependent o precarista."],
+        ["Herències", "Acceptació d'herència, reclamació de llegítimes i llegats, declaracions d'hereus, partició d'herència."],
+        ["Hipoteques i clàusules sòl", "Assessorament i reclamacions per a afectats per clàusules sòl d'hipoteques."],
+        ["Preferents i subordinades", "Reclamacions sobre preferents i deute subordinat de qualsevol entitat bancària."],
+        ["Comunitats de propietaris", "Assessorament en impagament de quotes, problemes de convivència, impugnació d'acords."],
+        ["Defectes constructius", "Patologies d'edificació, vicis i danys constructius. Guia d'actuació per a comunitats i particulars."],
+        ["Compliment de contractes", "Contractes de lloguer, compra-venda, arres i conflictes derivats."],
+        ["Responsabilitat civil mèdica", "Obligació de reparar el mal causat, en naturalesa o equivalent monetari."],
+      ],
+      cta: "Tens un conflicte civil? Analitzem el teu cas sense compromís.",
+    },
+  ],
+  es: [
+    {
+      id: 'laboral', label: 'Laboral', icon: 'doc',
+      title: 'Derecho Laboral',
+      tagline: 'Defendemos tus derechos como trabajador',
+      short: 'Reclamación de despidos, salarios e invalideces derivadas de accidentes de trabajo o enfermedad.',
+      intro: 'Experto en reclamación de despidos e indemnización por despido improcedente. Reclamación de salarios. Invalideces derivadas por accidente de trabajo o por enfermedad común. Accidentes laborales.',
+      services: [
+        ["Reclamación de salarios", "Procedimientos para la reclamación de salarios al empresario."],
+        ["Impugnación de despidos", "El trabajador en desacuerdo con la extinción de su contrato laboral dispone de un plazo de 20 días hábiles para impugnar."],
+        ["Impugnación de sanciones", "El trabajador puede impugnar la sanción que le haya sido impuesta mediante demanda."],
+        ["Reclamaciones de invalidez", "Incapacidades y bajas laborales. Te acompañamos en todo el procedimiento ante la Seguridad Social."],
+        ["Especialistas en accidentes de trabajo", "Asesoramiento integral para los trabajadores que han sufrido un accidente laboral."],
+      ],
+      cta: "¿Tienes un problema laboral? Contáctanos ahora.",
+    },
+    {
+      id: 'accidents', label: 'Accidentes', icon: 'car',
+      title: 'Accidentes de Tráfico',
+      tagline: 'Reclamamos la máxima indemnización por tus daños',
+      short: 'Reclamación ante la persona causante del accidente y su compañía de seguros.',
+      intro: 'Reclamación ante la persona causante del accidente y de su compañía de seguros en todo tipo de accidente de circulación y atropellos.',
+      services: [
+        ["Reclamaciones de lesionados", "Para obtener la máxima indemnización, es necesario hacer una valoración correcta que se adecúe al perjuicio causado al lesionado."],
+        ["Defensa de conductores", "Defensa del conductor ante un posible accidente de tráfico."],
+        ["Atropellos", "Si eres peatón y has sido atropellado, tienes derecho a reclamar una indemnización."],
+        ["Asistencia en la vía penal", "Toda la ayuda que necesitas sobre temas penales derivados del accidente."],
+        ["Procedimientos civiles", "Reclamación de daños y perjuicios en la vía civil."],
+      ],
+      cta: "¿Has tenido un accidente? No esperes, contáctanos.",
+    },
+    {
+      id: 'penal', label: 'Penal', icon: 'shield',
+      title: 'Derecho Penal',
+      tagline: 'Tu defensa jurídica, desde el primer momento',
+      short: 'Defensa de cualquier persona imputada en un delito: comisaría, instrucción y juicio oral.',
+      intro: 'Defensa jurídica de cualquier persona que resulte imputada en un delito, desde la asistencia en comisaría y en el juzgado, durante toda la fase de investigación del delito y asistencia al juicio oral.',
+      services: [
+        ["Asistencia al detenido", "Te acompañamos y asumimos tu defensa jurídica a lo largo de todo el procedimiento penal."],
+        ["Violencia doméstica", "Llevamos la defensa y acusación en delitos de violencia doméstica, con petición de medidas civiles cuando hay menores de edad."],
+        ["Delitos económicos", "Estafas, alzamiento de bienes, apropiaciones indebidas, delitos contra la hacienda pública."],
+        ["Jurisdicción de menores", "Asesoramiento y defensa en delitos cometidos por menores de edad penal. Especialistas en Derecho del Menor."],
+        ["Otros servicios penales", "Alcoholemias, lesiones, indultos y suspensión de la pena."],
+      ],
+      cta: "¿Te encuentras en una situación difícil? Estamos aquí para ayudarte.",
+    },
+    {
+      id: 'familia', label: 'Familia', icon: 'family',
+      title: 'Derecho de Familia',
+      tagline: 'Soluciones jurídicas para los momentos más difíciles',
+      short: 'Mediación y procedimientos en separaciones, divorcios, custodia y pensiones de alimentos.',
+      intro: 'Asesoramiento jurídico y mediación en temas de derecho de familia. Separaciones, divorcios, guarda y custodia en supuestos de parejas de hecho. Buscando siempre la mejor solución para la resolución del conflicto.',
+      services: [
+        ["Separaciones y divorcios", "Toda la información y ayuda que necesitas para tu separación y divorcio."],
+        ["Custodia de los hijos", "La relación, derechos y obligaciones entre padres e hijos. Priorizando la custodia compartida."],
+        ["Asignación de la vivienda familiar", "Cuando hay hijos comunes, cuando no los hay, si es independiente o pertenece a un tercero."],
+        ["Reclamación de la pensión de alimentos", "La reclamación de la pensión prescribe a los tres años desde que se dicta la resolución judicial."],
+        ["Extinción de pareja de hecho", "Asesoramiento sobre los efectos de la extinción de la pareja estable."],
+        ["División del patrimonio", "Asesoramiento en la división y adjudicación del patrimonio adquirido conjuntamente."],
+      ],
+      cta: "¿Estás pasando por un momento difícil? Te ayudamos a encontrar la mejor solución.",
+    },
+    {
+      id: 'civil', label: 'Civil', icon: 'scales',
+      title: 'Derecho Civil',
+      tagline: 'Soluciones para todo tipo de conflictos entre particulares y empresas',
+      short: 'Reclamaciones contractuales, herencias, desahucios, hipotecas y comunidades de propietarios.',
+      intro: 'El derecho civil es una rama amplísima de nuestro derecho donde caben todo tipo de reclamaciones contractuales y extracontractuales.',
+      services: [
+        ["Desahucios", "Proceso sumario para el lanzamiento de quien posee bienes ajenos como arrendatario, dependiente o precarista."],
+        ["Herencias", "Aceptación de herencia, reclamación de legítimas y legados, declaraciones de herederos, partición de herencia."],
+        ["Hipotecas y cláusulas suelo", "Asesoramiento y reclamaciones para afectados por cláusulas suelo de hipotecas."],
+        ["Preferentes y subordinadas", "Reclamaciones sobre preferentes y deuda subordinada de cualquier entidad bancaria."],
+        ["Comunidades de propietarios", "Asesoramiento en impago de cuotas, problemas de convivencia, impugnación de acuerdos."],
+        ["Defectos constructivos", "Patologías de edificación, vicios y daños constructivos. Guía de actuación para comunidades y particulares."],
+        ["Cumplimiento de contratos", "Contratos de alquiler, compraventa, arras y conflictos derivados."],
+        ["Responsabilidad civil médica", "Obligación de reparar el daño causado, en naturaleza o equivalente monetario."],
+      ],
+      cta: "¿Tienes un conflicto civil? Analizamos tu caso sin compromiso.",
+    },
+  ],
+};
+
+// ─── LOGO ─────────────────────────────────────────────────────────────────────
+function PonsLogo({ size = 1, light = false }) {
+  const w = 220 * size, h = 88 * size;
   const granate = light ? '#FFFFFF' : 'var(--granate)';
   const ink = light ? '#FFFFFF' : 'var(--ink)';
   return (
@@ -88,137 +362,46 @@ function PonsLogo({ size = 1, light = false, showRule = true }) {
       <rect x="40" y="2" width="178" height="44" fill={granate} />
       <text x="208" y="38" textAnchor="end" fontFamily="Cormorant Garamond, serif" fontWeight="400" fontSize="38" fill="#FFFFFF" fontStyle="italic" style={{ letterSpacing: '-0.02em' }}>pons</text>
       <text x="110" y="68" textAnchor="middle" fontFamily="Inter, sans-serif" fontWeight="300" fontSize="14" fill={ink} style={{ letterSpacing: '0.42em' }}>ADVOCATS</text>
-      {showRule && <rect x="20" y="80" width="180" height="1.5" fill={granate} />}
+      <rect x="20" y="80" width="180" height="1.5" fill={granate} />
     </svg>
   );
 }
 
-// ─── ICONS ──────────────────────────────────────────────────────────────────
-const iconBase = {
-  width: 36, height: 36, viewBox: '0 0 36 36',
-  fill: 'none', stroke: 'currentColor', strokeWidth: 1.25,
-  strokeLinecap: 'round', strokeLinejoin: 'round',
-};
-
+// ─── ICONS ────────────────────────────────────────────────────────────────────
+const IB = { width: 36, height: 36, viewBox: '0 0 36 36', fill: 'none', stroke: 'currentColor', strokeWidth: 1.25, strokeLinecap: 'round', strokeLinejoin: 'round' };
 const Icon = {
-  scales: (p) => (
-    <svg {...iconBase} {...p}>
-      <path d="M18 5v24" /><path d="M10 29h16" />
-      <path d="M6 11l4-4 4 4" /><path d="M22 11l4-4 4 4" />
-      <path d="M5 18a5 5 0 0010 0" /><path d="M21 18a5 5 0 0010 0" />
-      <path d="M10 7l16-2" />
-    </svg>
-  ),
-  car: (p) => (
-    <svg {...iconBase} {...p}>
-      <path d="M5 22h26" /><path d="M7 22v-6l3-7h16l3 7v6" />
-      <path d="M5 22v4h4v-4" /><path d="M27 22v4h4v-4" />
-      <circle cx="11" cy="20" r="1.4" /><circle cx="25" cy="20" r="1.4" />
-    </svg>
-  ),
-  shield: (p) => (
-    <svg {...iconBase} {...p}>
-      <path d="M18 4l11 4v8c0 8-5 13-11 16-6-3-11-8-11-16V8l11-4z" />
-      <path d="M13 18l4 4 7-7" />
-    </svg>
-  ),
-  family: (p) => (
-    <svg {...iconBase} {...p}>
-      <circle cx="11" cy="11" r="3.2" /><circle cx="25" cy="11" r="3.2" />
-      <path d="M5 26v-3a4 4 0 014-4h4a4 4 0 014 4v3" />
-      <path d="M19 26v-3a4 4 0 014-4h4a4 4 0 014 4v3" />
-      <circle cx="18" cy="22" r="1.8" />
-      <path d="M15 30v-1a3 3 0 013-3 3 3 0 013 3v1" />
-    </svg>
-  ),
-  doc: (p) => (
-    <svg {...iconBase} {...p}>
-      <path d="M9 4h13l5 5v23H9z" /><path d="M22 4v5h5" />
-      <path d="M13 16h10" /><path d="M13 21h10" /><path d="M13 26h6" />
-    </svg>
-  ),
-  phone: (p) => (
-    <svg {...iconBase} {...p}>
-      <path d="M9 5h5l3 7-3 2a16 16 0 008 8l2-3 7 3v5a3 3 0 01-3 3A22 22 0 016 8a3 3 0 013-3z" />
-    </svg>
-  ),
-  mail: (p) => (
-    <svg {...iconBase} {...p}>
-      <rect x="5" y="9" width="26" height="18" rx="1" />
-      <path d="M5 11l13 9 13-9" />
-    </svg>
-  ),
-  pin: (p) => (
-    <svg {...iconBase} {...p}>
-      <path d="M18 32s10-9 10-18a10 10 0 00-20 0c0 9 10 18 10 18z" />
-      <circle cx="18" cy="14" r="3.5" />
-    </svg>
-  ),
-  whatsapp: (p) => (
-    <svg {...iconBase} {...p}>
-      <path d="M5 31l2-7a12 12 0 113 3l-7 2 2-7" />
-    </svg>
-  ),
-  arrow: (p) => (
-    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" {...p}>
-      <path d="M2 7h10" /><path d="M8 3l4 4-4 4" />
-    </svg>
-  ),
-  menu: (p) => (
-    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" {...p}>
-      <path d="M3 7h16" /><path d="M3 15h16" />
-    </svg>
-  ),
-  close: (p) => (
-    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" {...p}>
-      <path d="M5 5l12 12" /><path d="M17 5L5 17" />
-    </svg>
-  ),
+  scales: (p) => (<svg {...IB} {...p}><path d="M18 5v24"/><path d="M10 29h16"/><path d="M6 11l4-4 4 4"/><path d="M22 11l4-4 4 4"/><path d="M5 18a5 5 0 0010 0"/><path d="M21 18a5 5 0 0010 0"/><path d="M10 7l16-2"/></svg>),
+  car: (p) => (<svg {...IB} {...p}><path d="M5 22h26"/><path d="M7 22v-6l3-7h16l3 7v6"/><path d="M5 22v4h4v-4"/><path d="M27 22v4h4v-4"/><circle cx="11" cy="20" r="1.4"/><circle cx="25" cy="20" r="1.4"/></svg>),
+  shield: (p) => (<svg {...IB} {...p}><path d="M18 4l11 4v8c0 8-5 13-11 16-6-3-11-8-11-16V8l11-4z"/><path d="M13 18l4 4 7-7"/></svg>),
+  family: (p) => (<svg {...IB} {...p}><circle cx="11" cy="11" r="3.2"/><circle cx="25" cy="11" r="3.2"/><path d="M5 26v-3a4 4 0 014-4h4a4 4 0 014 4v3"/><path d="M19 26v-3a4 4 0 014-4h4a4 4 0 014 4v3"/><circle cx="18" cy="22" r="1.8"/><path d="M15 30v-1a3 3 0 013-3 3 3 0 013 3v1"/></svg>),
+  doc: (p) => (<svg {...IB} {...p}><path d="M9 4h13l5 5v23H9z"/><path d="M22 4v5h5"/><path d="M13 16h10"/><path d="M13 21h10"/><path d="M13 26h6"/></svg>),
+  phone: (p) => (<svg {...IB} {...p}><path d="M9 5h5l3 7-3 2a16 16 0 008 8l2-3 7 3v5a3 3 0 01-3 3A22 22 0 016 8a3 3 0 013-3z"/></svg>),
+  mail: (p) => (<svg {...IB} {...p}><rect x="5" y="9" width="26" height="18" rx="1"/><path d="M5 11l13 9 13-9"/></svg>),
+  pin: (p) => (<svg {...IB} {...p}><path d="M18 32s10-9 10-18a10 10 0 00-20 0c0 9 10 18 10 18z"/><circle cx="18" cy="14" r="3.5"/></svg>),
+  whatsapp: (p) => (<svg {...IB} {...p}><path d="M5 31l2-7a12 12 0 113 3l-7 2 2-7"/></svg>),
+  arrow: (p) => (<svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" {...p}><path d="M2 7h10"/><path d="M8 3l4 4-4 4"/></svg>),
+  menu: (p) => (<svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" {...p}><path d="M3 7h16"/><path d="M3 15h16"/></svg>),
+  close: (p) => (<svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" {...p}><path d="M5 5l12 12"/><path d="M17 5L5 17"/></svg>),
 };
 
-// ─── BUTTONS ────────────────────────────────────────────────────────────────
-const btnBase = {
-  display: 'inline-flex', alignItems: 'center', gap: 10,
-  padding: '14px 22px', fontFamily: 'var(--sans)', fontWeight: 500,
-  fontSize: 14, letterSpacing: '0.02em', border: '1px solid transparent',
-  cursor: 'pointer', transition: 'all .2s ease', textDecoration: 'none', borderRadius: 0,
-};
-
+// ─── BUTTONS ──────────────────────────────────────────────────────────────────
+const btnBase = { display: 'inline-flex', alignItems: 'center', gap: 10, padding: '14px 22px', fontFamily: 'var(--sans)', fontWeight: 500, fontSize: 14, letterSpacing: '0.02em', border: '1px solid transparent', cursor: 'pointer', transition: 'all .2s ease', textDecoration: 'none', borderRadius: 0 };
 function PrimaryButton({ children, href, onClick, icon, style: s }) {
   const Tag = href ? 'a' : 'button';
-  return (
-    <Tag href={href} onClick={onClick} style={{ ...btnBase, background: 'var(--granate)', color: 'white', ...s }}
-      onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--granate-deep)'; }}
-      onMouseLeave={(e) => { e.currentTarget.style.background = 'var(--granate)'; }}>
-      {icon}<span>{children}</span>
-    </Tag>
-  );
+  return <Tag href={href} onClick={onClick} style={{ ...btnBase, background: 'var(--granate)', color: 'white', ...s }} onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--granate-deep)'; }} onMouseLeave={(e) => { e.currentTarget.style.background = 'var(--granate)'; }}>{icon}<span>{children}</span></Tag>;
 }
-
 function GhostButton({ children, href, onClick, icon, light = false, style: s }) {
   const Tag = href ? 'a' : 'button';
   const color = light ? 'white' : 'var(--ink)';
   const border = light ? 'rgba(255,255,255,0.5)' : 'var(--ink)';
-  return (
-    <Tag href={href} onClick={onClick}
-      style={{ ...btnBase, background: 'transparent', color, border: `1px solid ${border}`, ...s }}
-      onMouseEnter={(e) => { e.currentTarget.style.background = light ? 'white' : 'var(--ink)'; e.currentTarget.style.color = light ? 'var(--ink)' : 'white'; }}
-      onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = color; }}>
-      {icon}<span>{children}</span>
-    </Tag>
-  );
+  return <Tag href={href} onClick={onClick} style={{ ...btnBase, background: 'transparent', color, border: `1px solid ${border}`, ...s }} onMouseEnter={(e) => { e.currentTarget.style.background = light ? 'white' : 'var(--ink)'; e.currentTarget.style.color = light ? 'var(--ink)' : 'white'; }} onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = color; }}>{icon}<span>{children}</span></Tag>;
 }
 
-// ─── PRIMITIVES ─────────────────────────────────────────────────────────────
+// ─── PRIMITIVES ───────────────────────────────────────────────────────────────
 function Section({ children, bg = 'white', tight = false, id }) {
   const bgs = { white: 'var(--paper)', bone: 'var(--bone)', ink: 'var(--ink)', granate: 'var(--granate)' };
-  return (
-    <section id={id} style={{ background: bgs[bg] || bg, padding: tight ? '64px 0' : '110px 0', color: bg === 'ink' || bg === 'granate' ? 'white' : 'inherit' }}>
-      <div className="container">{children}</div>
-    </section>
-  );
+  return <section id={id} style={{ background: bgs[bg] || bg, padding: tight ? '64px 0' : '110px 0', color: bg === 'ink' || bg === 'granate' ? 'white' : 'inherit' }}><div className="container">{children}</div></section>;
 }
-
 function SectionHead({ eyebrow, title, lead, align = 'left', light = false }) {
   return (
     <div style={{ maxWidth: align === 'center' ? 760 : 720, margin: align === 'center' ? '0 auto 64px' : '0 0 64px', textAlign: align }}>
@@ -227,213 +410,118 @@ function SectionHead({ eyebrow, title, lead, align = 'left', light = false }) {
         <span className="eyebrow" style={{ color: light ? 'rgba(255,255,255,0.85)' : 'var(--granate)' }}>{eyebrow}</span>
       </div>
       <h2 style={{ fontSize: 'clamp(34px, 4.4vw, 54px)', fontWeight: 500, color: light ? 'white' : 'var(--ink)', marginBottom: lead ? 18 : 0 }}>{title}</h2>
-      {lead && (
-        <p style={{ fontFamily: 'var(--serif)', fontSize: 'clamp(18px, 1.6vw, 22px)', color: light ? 'rgba(255,255,255,0.85)' : 'var(--ink-2)', fontStyle: 'italic', lineHeight: 1.5, fontWeight: 400 }}>{lead}</p>
-      )}
+      {lead && <p style={{ fontFamily: 'var(--serif)', fontSize: 'clamp(18px, 1.6vw, 22px)', color: light ? 'rgba(255,255,255,0.85)' : 'var(--ink-2)', fontStyle: 'italic', lineHeight: 1.5, fontWeight: 400 }}>{lead}</p>}
     </div>
   );
 }
 
-// ─── AREAS DATA ──────────────────────────────────────────────────────────────
-const AREAS = [
-  {
-    id: 'laboral', label: 'Laboral', icon: 'doc',
-    title: 'Dret Laboral',
-    tagline: 'Defensem els teus drets com a treballador',
-    short: 'Reclamació d\'acomiadaments, salaris i invalideses derivades d\'accidents de treball o malaltia.',
-    intro: 'Expert en reclamació d\'acomiadaments i indemnització per acomiadament improcedent. Reclamació de salaris. Invalideses derivades per accident de treball o per malaltia comuna. Accidents laborals.',
-    services: [
-      ['Reclamació de salaris', 'Procediments per a la reclamació de salaris a l\'empresari.'],
-      ['Impugnació d\'acomiadaments', 'El treballador en desacord amb l\'extinció del seu contracte laboral disposa d\'un termini de 20 dies hàbils per impugnar.'],
-      ['Impugnació de sancions', 'El treballador pot impugnar la sanció que li hagi estat imposada mitjançant demanda.'],
-      ['Reclamacions d\'invalidesa', 'Incapacitats i baixes laborals. Acompanyem en tot el procediment davant la Seguretat Social.'],
-      ['Especialistes en accidents de treball', 'Assessorament integral per als treballadors que han patit un accident laboral.'],
-    ],
-    cta: 'Tens un problema laboral? Contacta\'ns ara.',
-  },
-  {
-    id: 'accidents', label: 'Accidents', icon: 'car',
-    title: 'Accidents de Trànsit',
-    tagline: 'Reclamem la màxima indemnització pels teus danys',
-    short: 'Reclamació davant la persona causant de l\'accident i la seva companyia d\'assegurances.',
-    intro: 'Reclamació davant de la persona causant de l\'accident i de la seva companyia d\'assegurances en tot tipus d\'accident de circulació i atropellaments.',
-    services: [
-      ['Reclamacions de lesionats', 'Per obtenir la màxima indemnització, cal fer una valoració correcta que s\'adeqüi al perjudici causat al lesionat.'],
-      ['Defensa de conductors', 'Defensa del conductor davant un possible accident de trànsit.'],
-      ['Atropellaments', 'Si ets vianant i has estat atropellat, tens dret a reclamar una indemnització.'],
-      ['Assistència a la via penal', 'Tota l\'ajuda que necessites sobre temes penals derivats de l\'accident.'],
-      ['Procediments civils', 'Reclamació de danys i perjudicis a la via civil.'],
-    ],
-    cta: 'Has tingut un accident? No esperis, contacta\'ns.',
-  },
-  {
-    id: 'penal', label: 'Penal', icon: 'shield',
-    title: 'Dret Penal',
-    tagline: 'La teva defensa jurídica, des del primer moment',
-    short: 'Defensa de qualsevol persona imputada en un delicte: comissaria, instrucció i judici oral.',
-    intro: 'Defensa jurídica de qualsevol persona que resulti imputada en un delicte, des de l\'assistència a comissaria i al jutjat, durant tota la fase d\'investigació del delicte i assistència al judici oral.',
-    services: [
-      ['Assistència al detingut', 'T\'acompanyem i assumim la teva defensa jurídica al llarg de tot el procediment penal.'],
-      ['Violència domèstica', 'Portem la defensa i acusació en delictes de violència domèstica, amb petició de mesures civils quan hi ha menors d\'edat.'],
-      ['Delictes econòmics', 'Estafes, alçament de béns, apropiacions indegudes, delictes contra la hisenda pública.'],
-      ['Jurisdicció de menors', 'Assessorament i defensa en delictes comesos per menors d\'edat penal. Especialistes en Dret del Menor.'],
-      ['Altres serveis penals', 'Alcoholèmies, lesions, indults i suspensió de la pena.'],
-    ],
-    cta: 'Et trobes en una situació difícil? Estem aquí per ajudar-te.',
-  },
-  {
-    id: 'familia', label: 'Família', icon: 'family',
-    title: 'Dret de Família',
-    tagline: 'Solucions jurídiques per als moments més difícils',
-    short: 'Mediació i procediments en separacions, divorcis, custòdia i pensions d\'aliments.',
-    intro: 'Assessorament jurídic i mediació en temes de dret de família. Separacions, divorcis, guarda i custòdia en supòsits de parelles de fet. Buscant sempre la millor solució per a la resolució del conflicte.',
-    services: [
-      ['Separacions i divorcis', 'Tota la informació i ajuda que necessites per a la teva separació i divorci.'],
-      ['Custòdia dels fills', 'La relació, drets i obligacions entre pares i fills. Fent prevaler la custòdia compartida.'],
-      ['Assignació de vivenda familiar', 'Quan hi ha fills comuns, quan no n\'hi ha, si és independent o pertany a un tercer.'],
-      ['Reclamació de la pensió d\'aliments', 'La reclamació de la pensió prescriu als tres anys des que es dicta la resolució judicial.'],
-      ['Extinció de parella de fet', 'Assessorament sobre els efectes de l\'extinció de la parella estable.'],
-      ['Divisió del patrimoni', 'Assessorament en la divisió i adjudicació del patrimoni adquirit conjuntament.'],
-    ],
-    cta: 'Passes per un moment difícil? T\'ajudem a trobar la millor solució.',
-  },
-  {
-    id: 'civil', label: 'Civil', icon: 'scales',
-    title: 'Dret Civil',
-    tagline: 'Solucions per a tot tipus de conflictes entre particulars i empreses',
-    short: 'Reclamacions contractuals, herències, desnonaments, hipoteques i comunitats de propietaris.',
-    intro: 'El dret civil és una branca amplíssima del nostre dret on hi caben tot tipus de reclamacions contractuals i extracontractuals.',
-    services: [
-      ['Desnonaments', 'Procés sumari per al llançament de qui posseeix béns aliens com a arrendatari, dependent o precarista.'],
-      ['Herències', 'Acceptació d\'herència, reclamació de llegítimes i llegats, declaracions d\'hereus, partició d\'herència.'],
-      ['Hipoteques i clàusules sòl', 'Assessorament i reclamacions per a afectats per clàusules sòl d\'hipoteques.'],
-      ['Preferents i subordinades', 'Reclamacions sobre preferents i deute subordinat de qualsevol entitat bancària.'],
-      ['Comunitats de propietaris', 'Assessorament en impagament de quotes, problemes de convivència, impugnació d\'acords.'],
-      ['Defectes constructius', 'Patologies d\'edificació, vicis i danys constructius. Guia d\'actuació per a comunitats i particulars.'],
-      ['Compliment de contractes', 'Contractes de lloguer, compra-venda, arres i conflictes derivats.'],
-      ['Responsabilitat civil mèdica', 'Obligació de reparar el mal causat, en naturalesa o equivalent monetari.'],
-    ],
-    cta: 'Tens un conflicte civil? Analitzem el teu cas sense compromís.',
-  },
-];
+// ─── LANGUAGE SWITCHER ────────────────────────────────────────────────────────
+function LangSwitcher({ lang, setLang }) {
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: 0, border: '1px solid var(--rule)', borderRadius: 0, overflow: 'hidden', marginLeft: 8 }}>
+      {['ca', 'es'].map((l) => (
+        <button key={l} onClick={() => setLang(l)} style={{ padding: '6px 12px', fontSize: 11, fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', border: 'none', cursor: 'pointer', background: lang === l ? 'var(--granate)' : 'transparent', color: lang === l ? 'white' : 'var(--ink-3)', transition: 'all .2s', fontFamily: 'var(--sans)' }}>
+          {l.toUpperCase()}
+        </button>
+      ))}
+    </div>
+  );
+}
 
-// ─── HEADER ─────────────────────────────────────────────────────────────────
-function Header({ current, go }) {
+// ─── HEADER ───────────────────────────────────────────────────────────────────
+function Header({ current, go, lang, setLang, areas }) {
   const [scrolled, setScrolled] = React.useState(false);
   const [mobileOpen, setMobileOpen] = React.useState(false);
-
+  const t = TEXTS[lang];
   React.useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 6);
     window.addEventListener('scroll', onScroll);
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
-
-  const navItems = [
-    { id: 'home', label: 'Inici' },
-    ...AREAS.map((a) => ({ id: a.id, label: a.label })),
-    { id: 'contacte', label: 'Contacte' },
-  ];
-
+  const navItems = [{ id: 'home', label: t.navHome }, ...areas.map((a) => ({ id: a.id, label: a.label })), { id: 'contacte', label: t.navContact }];
   return (
-    <header style={{
-      position: 'sticky', top: 0, zIndex: 50,
-      background: 'rgba(255,255,255,0.96)', backdropFilter: 'blur(8px)',
-      borderBottom: scrolled ? '1px solid var(--rule)' : '1px solid transparent',
-      transition: 'border-color .25s ease',
-    }}>
+    <header style={{ position: 'sticky', top: 0, zIndex: 50, background: 'rgba(255,255,255,0.96)', backdropFilter: 'blur(8px)', borderBottom: scrolled ? '1px solid var(--rule)' : '1px solid transparent', transition: 'border-color .25s ease' }}>
       <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '18px 32px' }}>
         <a href="#home" onClick={(e) => { e.preventDefault(); go('home'); }} style={{ display: 'flex', alignItems: 'center' }}>
           <PonsLogo size={0.7} />
         </a>
-
         <nav className="desktop-nav" style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
           {navItems.map((n) => {
             const active = current === n.id;
             return (
-              <a key={n.id} href={`#${n.id}`}
-                onClick={(e) => { e.preventDefault(); go(n.id); }}
+              <a key={n.id} href={`#${n.id}`} onClick={(e) => { e.preventDefault(); go(n.id); }}
                 style={{ position: 'relative', padding: '10px 14px', fontSize: 13, fontWeight: 500, letterSpacing: '0.04em', textTransform: 'uppercase', color: active ? 'var(--granate)' : 'var(--ink)', transition: 'color .2s' }}
                 onMouseEnter={(e) => { if (!active) e.currentTarget.style.color = 'var(--granate)'; }}
-                onMouseLeave={(e) => { if (!active) e.currentTarget.style.color = active ? 'var(--granate)' : 'var(--ink)'; }}>
+                onMouseLeave={(e) => { if (!active) e.currentTarget.style.color = 'var(--ink)'; }}>
                 {n.label}
                 {active && <span style={{ position: 'absolute', left: 14, right: 14, bottom: 4, height: 1, background: 'var(--granate)' }} />}
               </a>
             );
           })}
-          <a href="tel:+34938707859"
-            style={{ marginLeft: 18, display: 'inline-flex', alignItems: 'center', gap: 8, padding: '10px 18px', border: '1px solid var(--granate)', color: 'var(--granate)', fontSize: 13, fontWeight: 500, letterSpacing: '0.02em', transition: 'all .2s' }}
+          <a href="tel:+34938707859" style={{ marginLeft: 14, display: 'inline-flex', alignItems: 'center', gap: 8, padding: '10px 18px', border: '1px solid var(--granate)', color: 'var(--granate)', fontSize: 13, fontWeight: 500, letterSpacing: '0.02em', transition: 'all .2s' }}
             onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--granate)'; e.currentTarget.style.color = 'white'; }}
             onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = 'var(--granate)'; }}>
             <Icon.phone width="14" height="14" /> 93 870 78 59
           </a>
+          <LangSwitcher lang={lang} setLang={setLang} />
         </nav>
-
-        <button className="mobile-toggle" onClick={() => setMobileOpen(!mobileOpen)}
-          style={{ display: 'none', background: 'transparent', border: 'none', padding: 8, cursor: 'pointer', color: 'var(--ink)' }}
-          aria-label="Menu">
-          {mobileOpen ? <Icon.close /> : <Icon.menu />}
-        </button>
+        <div style={{ display: 'none' }} className="mobile-right">
+          <LangSwitcher lang={lang} setLang={setLang} />
+          <button className="mobile-toggle" onClick={() => setMobileOpen(!mobileOpen)}
+            style={{ background: 'transparent', border: 'none', padding: 8, cursor: 'pointer', color: 'var(--ink)' }} aria-label="Menu">
+            {mobileOpen ? <Icon.close /> : <Icon.menu />}
+          </button>
+        </div>
       </div>
-
       {mobileOpen && (
         <div style={{ background: 'white', borderTop: '1px solid var(--rule)', padding: '12px 0 20px' }}>
           <div className="container">
             {navItems.map((n) => {
               const active = current === n.id;
-              return (
-                <a key={n.id} href={`#${n.id}`}
-                  onClick={(e) => { e.preventDefault(); go(n.id); setMobileOpen(false); }}
-                  style={{ display: 'block', padding: '14px 0', borderBottom: '1px solid var(--rule)', fontSize: 15, fontWeight: 500, letterSpacing: '0.02em', color: active ? 'var(--granate)' : 'var(--ink)' }}>
-                  {n.label}
-                </a>
-              );
+              return <a key={n.id} href={`#${n.id}`} onClick={(e) => { e.preventDefault(); go(n.id); setMobileOpen(false); }} style={{ display: 'block', padding: '14px 0', borderBottom: '1px solid var(--rule)', fontSize: 15, fontWeight: 500, letterSpacing: '0.02em', color: active ? 'var(--granate)' : 'var(--ink)' }}>{n.label}</a>;
             })}
-            <a href="tel:+34938707859"
-              style={{ display: 'inline-flex', alignItems: 'center', gap: 8, marginTop: 18, padding: '12px 18px', background: 'var(--granate)', color: 'white', fontSize: 14, fontWeight: 500 }}>
+            <a href="tel:+34938707859" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, marginTop: 18, padding: '12px 18px', background: 'var(--granate)', color: 'white', fontSize: 14, fontWeight: 500 }}>
               <Icon.phone width="14" height="14" /> 93 870 78 59
             </a>
           </div>
         </div>
       )}
-
       <style>{`
         @media (max-width: 980px) {
           .desktop-nav { display: none !important; }
-          .mobile-toggle { display: inline-flex !important; }
+          .mobile-right { display: flex !important; align-items: center; gap: 8px; }
         }
       `}</style>
     </header>
   );
 }
 
-// ─── FOOTER ─────────────────────────────────────────────────────────────────
-function Footer({ go }) {
+// ─── FOOTER ───────────────────────────────────────────────────────────────────
+function Footer({ go, lang, areas }) {
+  const t = TEXTS[lang];
   return (
     <footer style={{ background: 'var(--ink)', color: 'rgba(255,255,255,0.75)', padding: '72px 0 32px' }}>
       <div className="container">
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gap: 40 }}>
           <div style={{ gridColumn: 'span 4' }} className="foot-col">
             <PonsLogo size={0.9} light />
-            <p style={{ fontFamily: 'var(--serif)', fontStyle: 'italic', fontSize: 18, lineHeight: 1.5, color: 'rgba(255,255,255,0.7)', marginTop: 24, maxWidth: 320 }}>
-              Despatx d'advocats a Granollers. Defensem els teus drets amb experiència, rigor i proximitat.
-            </p>
+            <p style={{ fontFamily: 'var(--serif)', fontStyle: 'italic', fontSize: 18, lineHeight: 1.5, color: 'rgba(255,255,255,0.7)', marginTop: 24, maxWidth: 320 }}>{t.footerLead}</p>
           </div>
           <div style={{ gridColumn: 'span 4' }} className="foot-col">
-            <div className="eyebrow" style={{ color: 'rgba(255,255,255,0.55)', marginBottom: 22 }}>Àrees</div>
+            <div className="eyebrow" style={{ color: 'rgba(255,255,255,0.55)', marginBottom: 22 }}>{t.footerAreas}</div>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px 24px' }}>
-              {AREAS.map((a) => (
-                <a key={a.id} href={`#${a.id}`}
-                  onClick={(e) => { e.preventDefault(); go(a.id); }}
+              {areas.map((a) => (
+                <a key={a.id} href={`#${a.id}`} onClick={(e) => { e.preventDefault(); go(a.id); }}
                   style={{ fontSize: 14, color: 'rgba(255,255,255,0.78)', padding: '4px 0', transition: 'color .2s' }}
                   onMouseEnter={(e) => e.currentTarget.style.color = 'white'}
                   onMouseLeave={(e) => e.currentTarget.style.color = 'rgba(255,255,255,0.78)'}>
-                  Dret {a.label}
+                  {t.dretPrefix}{a.label}
                 </a>
               ))}
             </div>
           </div>
           <div style={{ gridColumn: 'span 4' }} className="foot-col">
-            <div className="eyebrow" style={{ color: 'rgba(255,255,255,0.55)', marginBottom: 22 }}>Contacte</div>
+            <div className="eyebrow" style={{ color: 'rgba(255,255,255,0.55)', marginBottom: 22 }}>{t.footerContact}</div>
             <div style={{ display: 'grid', gap: 14, fontSize: 14 }}>
               <div style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
                 <Icon.pin width="18" height="18" style={{ color: 'var(--granate-soft)', flex: 'none', marginTop: 2 }} />
@@ -454,41 +542,33 @@ function Footer({ go }) {
           </div>
         </div>
         <div style={{ marginTop: 56, paddingTop: 24, borderTop: '1px solid rgba(255,255,255,0.12)', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12, fontSize: 12, letterSpacing: '0.04em', color: 'rgba(255,255,255,0.45)' }}>
-          <div>© 2026 Pons Advocats · Tots els drets reservats</div>
-          <div>C/ Lliri, 23 · Granollers · Barcelona</div>
+          <div>{t.footerCopy}</div>
+          <div>{t.footerAddr}</div>
         </div>
       </div>
-      <style>{`
-        @media (max-width: 880px) { .foot-col { grid-column: span 12 !important; } }
-      `}</style>
+      <style>{`@media (max-width: 880px) { .foot-col { grid-column: span 12 !important; } }`}</style>
     </footer>
   );
 }
 
-// ─── HOME PAGE ───────────────────────────────────────────────────────────────
-function Hero({ go }) {
+// ─── HOME PAGE ────────────────────────────────────────────────────────────────
+function Hero({ go, lang }) {
+  const t = TEXTS[lang];
   return (
     <section style={{ position: 'relative', background: 'var(--paper)', overflow: 'hidden' }}>
       <div style={{ display: 'grid', gridTemplateColumns: '1.1fr 0.9fr', minHeight: '78vh' }} className="hero-grid">
         <div style={{ padding: 'clamp(60px, 8vw, 110px) clamp(32px, 6vw, 96px)', display: 'flex', flexDirection: 'column', justifyContent: 'center', position: 'relative' }}>
           <div className="fade-in" style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 28 }}>
             <span style={{ width: 36, height: 1, background: 'var(--granate)' }} />
-            <span className="eyebrow">Granollers · Des de 1985</span>
+            <span className="eyebrow">{t.since}</span>
           </div>
           <h1 className="fade-in" style={{ fontSize: 'clamp(44px, 6.6vw, 88px)', fontWeight: 500, lineHeight: 1.02, letterSpacing: '-0.015em', marginBottom: 28, animationDelay: '.05s' }}>
-            El vostre despatx<br />
-            d'advocats <em style={{ color: 'var(--granate)', fontStyle: 'italic', fontWeight: 500 }}>de confiança</em>.
+            {t.heroTitle1}<br />{t.heroTitle2} <em style={{ color: 'var(--granate)', fontStyle: 'italic', fontWeight: 500 }}>{t.heroTitle3}</em>.
           </h1>
-          <p className="fade-in" style={{ fontFamily: 'var(--serif)', fontStyle: 'italic', fontSize: 'clamp(18px, 1.7vw, 23px)', color: 'var(--ink-2)', lineHeight: 1.5, maxWidth: 520, marginBottom: 44, animationDelay: '.1s' }}>
-            Experiència, professionalitat i atenció personalitzada. Més de tres dècades acompanyant famílies i empreses del Vallès Oriental.
-          </p>
+          <p className="fade-in" style={{ fontFamily: 'var(--serif)', fontStyle: 'italic', fontSize: 'clamp(18px, 1.7vw, 23px)', color: 'var(--ink-2)', lineHeight: 1.5, maxWidth: 520, marginBottom: 44, animationDelay: '.1s' }}>{t.heroLead}</p>
           <div className="fade-in" style={{ display: 'flex', gap: 14, flexWrap: 'wrap', animationDelay: '.18s' }}>
-            <PrimaryButton href="tel:+34938707859" icon={<Icon.phone width="16" height="16" />}>
-              Truca'ns ara · 93 870 78 59
-            </PrimaryButton>
-            <GhostButton href="https://wa.me/34938707859" icon={<Icon.whatsapp width="16" height="16" />}>
-              WhatsApp
-            </GhostButton>
+            <PrimaryButton href="tel:+34938707859" icon={<Icon.phone width="16" height="16" />}>{t.callBtn}</PrimaryButton>
+            <GhostButton href="https://wa.me/34938707859" icon={<Icon.whatsapp width="16" height="16" />}>{t.waBtn}</GhostButton>
           </div>
           <div style={{ position: 'absolute', left: 'clamp(32px, 6vw, 96px)', bottom: 36, display: 'flex', gap: 28, fontSize: 12, color: 'var(--ink-3)', letterSpacing: '0.06em', textTransform: 'uppercase' }} className="hero-foot">
             <span>Laboral</span><span>·</span><span>Penal</span><span>·</span><span>Família</span><span>·</span><span>Civil</span><span>·</span><span>Accidents</span>
@@ -497,90 +577,71 @@ function Hero({ go }) {
         <div style={{ background: 'var(--granate)', color: 'white', position: 'relative', display: 'flex', alignItems: 'flex-end', padding: '60px clamp(32px, 5vw, 70px)', overflow: 'hidden' }}>
           <div className="fade-in" style={{ position: 'absolute', top: 'clamp(48px, 7vw, 90px)', left: 'clamp(32px, 5vw, 70px)', right: 'clamp(32px, 5vw, 70px)', animationDelay: '.25s' }}>
             <div style={{ fontFamily: 'var(--serif)', fontSize: 'clamp(140px, 18vw, 240px)', lineHeight: 0.7, color: 'rgba(255,255,255,0.18)', fontWeight: 400, marginBottom: 24, letterSpacing: '-0.04em' }}>"</div>
-            <p style={{ fontFamily: 'var(--serif)', fontSize: 'clamp(22px, 2.4vw, 32px)', lineHeight: 1.35, fontWeight: 400, fontStyle: 'italic', color: 'white', maxWidth: 460 }}>
-              La justícia no consisteix en ser neutral entre el bé i el mal, sinó en saber distingir-los.
-            </p>
+            <p style={{ fontFamily: 'var(--serif)', fontSize: 'clamp(22px, 2.4vw, 32px)', lineHeight: 1.35, fontWeight: 400, fontStyle: 'italic', color: 'white', maxWidth: 460 }}>{t.quote}</p>
           </div>
           <div className="fade-in" style={{ animationDelay: '.35s', display: 'flex', flexDirection: 'column', gap: 22, width: '100%' }}>
             <div style={{ height: 1, background: 'rgba(255,255,255,0.3)', width: 60 }} />
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 32, fontSize: 13, lineHeight: 1.6 }}>
               <div>
-                <div style={{ opacity: 0.6, fontSize: 11, letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: 6 }}>Despatx</div>
+                <div style={{ opacity: 0.6, fontSize: 11, letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: 6 }}>{t.officeLabel}</div>
                 <div>C/ Lliri, 23<br />08402 Granollers</div>
               </div>
               <div>
-                <div style={{ opacity: 0.6, fontSize: 11, letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: 6 }}>Horari</div>
-                <div>Dl–Dv · 9 a 19 h<br />Visita amb cita prèvia</div>
+                <div style={{ opacity: 0.6, fontSize: 11, letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: 6 }}>{t.scheduleLabel}</div>
+                <div>{t.scheduleVal}<br />{t.scheduleVal2}</div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <style>{`
-        @media (max-width: 900px) {
-          .hero-grid { grid-template-columns: 1fr !important; }
-          .hero-foot { display: none !important; }
-        }
-      `}</style>
+      <style>{`@media (max-width: 900px) { .hero-grid { grid-template-columns: 1fr !important; } .hero-foot { display: none !important; } }`}</style>
     </section>
   );
 }
 
-function Trust() {
-  const items = [
-    ['Discreció', 'Cada cas el tractem amb la confidencialitat que mereix.'],
-    ['Proximitat', 'Coneixem el teu entorn. Som de Granollers, com tu.'],
-    ['Rigor', 'Defensa tècnica fonamentada i argumentada en cada procediment.'],
-    ['Resultats', 'Més de quaranta anys de jurisprudència favorable als clients.'],
-  ];
+function Trust({ lang }) {
+  const t = TEXTS[lang];
+  const items = [[t.trustTitle1, t.trustDesc1],[t.trustTitle2, t.trustDesc2],[t.trustTitle3, t.trustDesc3],[t.trustTitle4, t.trustDesc4]];
   return (
     <section style={{ background: 'var(--bone)', padding: '80px 0', borderTop: '1px solid var(--rule)' }}>
       <div className="container">
         <div className="trust-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 0 }}>
-          {items.map(([t, d], i) => (
-            <div key={t} style={{ padding: '8px 28px', borderLeft: i === 0 ? '1px solid var(--rule)' : 'none', borderRight: '1px solid var(--rule)' }} className="trust-cell">
+          {items.map(([title, desc], i) => (
+            <div key={title} style={{ padding: '8px 28px', borderLeft: i === 0 ? '1px solid var(--rule)' : 'none', borderRight: '1px solid var(--rule)' }} className="trust-cell">
               <div style={{ fontFamily: 'var(--serif)', fontSize: 32, fontWeight: 500, marginBottom: 12 }}>
-                <span style={{ color: 'var(--granate)', marginRight: 12 }}>·</span>{t}
+                <span style={{ color: 'var(--granate)', marginRight: 12 }}>·</span>{title}
               </div>
-              <p style={{ fontSize: 14, color: 'var(--ink-2)', maxWidth: 240 }}>{d}</p>
+              <p style={{ fontSize: 14, color: 'var(--ink-2)', maxWidth: 240 }}>{desc}</p>
             </div>
           ))}
         </div>
       </div>
-      <style>{`
-        @media (max-width: 880px) {
-          .trust-grid { grid-template-columns: 1fr 1fr !important; }
-          .trust-cell { padding: 16px 22px !important; border-left: 1px solid var(--rule) !important; margin-bottom: -1px; border-bottom: 1px solid var(--rule); }
-        }
-        @media (max-width: 520px) { .trust-grid { grid-template-columns: 1fr !important; } }
-      `}</style>
+      <style>{`@media (max-width: 880px) { .trust-grid { grid-template-columns: 1fr 1fr !important; } .trust-cell { padding: 16px 22px !important; border-left: 1px solid var(--rule) !important; margin-bottom: -1px; border-bottom: 1px solid var(--rule); } } @media (max-width: 520px) { .trust-grid { grid-template-columns: 1fr !important; } }`}</style>
     </section>
   );
 }
 
-function AreasOverview({ go }) {
+function AreasOverview({ go, lang, areas }) {
+  const t = TEXTS[lang];
   return (
     <Section bg="white">
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 60, marginBottom: 72, alignItems: 'end' }} className="areas-head">
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 18 }}>
             <span style={{ width: 28, height: 1, background: 'var(--granate)' }} />
-            <span className="eyebrow">Les nostres especialitats</span>
+            <span className="eyebrow">{t.areasEyebrow}</span>
           </div>
           <h2 style={{ fontSize: 'clamp(36px, 4.6vw, 60px)', fontWeight: 500, lineHeight: 1.05 }}>
-            Cinc àrees, una <em style={{ color: 'var(--granate)', fontStyle: 'italic' }}>mateixa exigència</em>.
+            {t.areasTitle1} <em style={{ color: 'var(--granate)', fontStyle: 'italic' }}>{t.areasTitle2}</em>.
           </h2>
         </div>
-        <p style={{ fontSize: 17, color: 'var(--ink-2)', lineHeight: 1.65, maxWidth: 460 }}>
-          Treballem per oferir-te una defensa jurídica integral. Selecciona l'àrea que t'afecta i descobreix com et podem ajudar.
-        </p>
+        <p style={{ fontSize: 17, color: 'var(--ink-2)', lineHeight: 1.65, maxWidth: 460 }}>{t.areasLead}</p>
       </div>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 0, borderTop: '1px solid var(--rule)' }} className="areas-grid">
-        {AREAS.map((a, i) => {
+        {areas.map((a, i) => {
           const I = Icon[a.icon];
           return (
-            <a key={a.id} href={`#${a.id}`}
-              onClick={(e) => { e.preventDefault(); go(a.id); }}
+            <a key={a.id} href={`#${a.id}`} onClick={(e) => { e.preventDefault(); go(a.id); }}
               style={{ position: 'relative', padding: '40px 36px 36px', borderRight: (i + 1) % 3 !== 0 ? '1px solid var(--rule)' : 'none', borderBottom: '1px solid var(--rule)', display: 'flex', flexDirection: 'column', gap: 18, transition: 'background .25s ease', minHeight: 280, color: 'var(--ink)' }}
               className="area-card"
               onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--bone)'; }}
@@ -592,66 +653,47 @@ function AreasOverview({ go }) {
               <h3 style={{ fontSize: 30, fontWeight: 500, marginTop: 8 }}>{a.title}</h3>
               <p style={{ fontSize: 14.5, color: 'var(--ink-2)', lineHeight: 1.6, flex: 1 }}>{a.short}</p>
               <div style={{ display: 'inline-flex', alignItems: 'center', gap: 10, fontSize: 13, color: 'var(--granate)', fontWeight: 500, letterSpacing: '0.04em', textTransform: 'uppercase' }}>
-                Saber més <Icon.arrow />
+                {t.areaMore} <Icon.arrow />
               </div>
             </a>
           );
         })}
         <div style={{ padding: '40px 36px', background: 'var(--ink)', color: 'white', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: 280, borderBottom: '1px solid var(--rule)' }}>
-          <h3 style={{ fontFamily: 'var(--serif)', fontSize: 28, color: 'white', fontWeight: 500, lineHeight: 1.2 }}>
-            No estàs segur de quina àrea correspon al teu cas?
-          </h3>
+          <h3 style={{ fontFamily: 'var(--serif)', fontSize: 28, color: 'white', fontWeight: 500, lineHeight: 1.2 }}>{t.areasUnsure}</h3>
           <a href="#contacte" onClick={(e) => { e.preventDefault(); go('contacte'); }}
             style={{ display: 'inline-flex', alignItems: 'center', gap: 10, fontSize: 13, color: 'white', fontWeight: 500, letterSpacing: '0.04em', textTransform: 'uppercase', borderBottom: '1px solid rgba(255,255,255,0.4)', paddingBottom: 8, alignSelf: 'flex-start' }}>
-            Demana una primera consulta <Icon.arrow />
+            {t.areasConsult} <Icon.arrow />
           </a>
         </div>
       </div>
-      <style>{`
-        @media (max-width: 980px) {
-          .areas-head { grid-template-columns: 1fr !important; gap: 28px !important; }
-          .areas-grid { grid-template-columns: 1fr 1fr !important; }
-          .area-card:nth-child(2n) { border-right: none !important; }
-          .area-card:nth-child(2n+1) { border-right: 1px solid var(--rule) !important; }
-        }
-        @media (max-width: 600px) {
-          .areas-grid { grid-template-columns: 1fr !important; }
-          .area-card { border-right: none !important; }
-        }
-      `}</style>
+      <style>{`@media (max-width: 980px) { .areas-head { grid-template-columns: 1fr !important; gap: 28px !important; } .areas-grid { grid-template-columns: 1fr 1fr !important; } .area-card:nth-child(2n) { border-right: none !important; } .area-card:nth-child(2n+1) { border-right: 1px solid var(--rule) !important; } } @media (max-width: 600px) { .areas-grid { grid-template-columns: 1fr !important; } .area-card { border-right: none !important; } }`}</style>
     </Section>
   );
 }
 
-function Approach() {
-  const steps = [
-    ['Primera escolta', 'Cada cas comença amb una conversa atenta. Sense jargó, sense pressa.'],
-    ['Estratègia clara', 'Definim opcions, riscos i terminis. Tu decideixes amb tota la informació.'],
-    ['Defensa rigorosa', 'Tramitació, negociació i, si cal, judici. Sempre amb un advocat assignat.'],
-    ['Acompanyament', 'Et mantenim informat de cada moviment fins que el cas es resol.'],
-  ];
+function Approach({ lang }) {
+  const t = TEXTS[lang];
+  const steps = [[t.step1t, t.step1d],[t.step2t, t.step2d],[t.step3t, t.step3d],[t.step4t, t.step4d]];
   return (
     <Section bg="bone">
       <div style={{ display: 'grid', gridTemplateColumns: '0.8fr 1.2fr', gap: 80 }} className="appr-grid">
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 18 }}>
             <span style={{ width: 28, height: 1, background: 'var(--granate)' }} />
-            <span className="eyebrow">El nostre mètode</span>
+            <span className="eyebrow">{t.methodEyebrow}</span>
           </div>
           <h2 style={{ fontSize: 'clamp(34px, 4vw, 50px)', fontWeight: 500, marginBottom: 24 }}>
-            Un cas, quatre <em style={{ fontStyle: 'italic', color: 'var(--granate)' }}>moments</em>.
+            {t.methodTitle1} <em style={{ fontStyle: 'italic', color: 'var(--granate)' }}>{t.methodTitle2}</em>.
           </h2>
-          <p style={{ fontSize: 17, color: 'var(--ink-2)', lineHeight: 1.65, maxWidth: 380 }}>
-            La diferència entre una bona i una mala defensa es decideix sovint en com s'afronten els primers dies. Per això tenim un mètode clar.
-          </p>
+          <p style={{ fontSize: 17, color: 'var(--ink-2)', lineHeight: 1.65, maxWidth: 380 }}>{t.methodLead}</p>
         </div>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
-          {steps.map(([t, d], i) => (
-            <div key={t} style={{ display: 'grid', gridTemplateColumns: '80px 1fr', gap: 28, padding: '30px 0', borderTop: '1px solid var(--rule)', borderBottom: i === steps.length - 1 ? '1px solid var(--rule)' : 'none', alignItems: 'baseline' }}>
+          {steps.map(([title, desc], i) => (
+            <div key={title} style={{ display: 'grid', gridTemplateColumns: '80px 1fr', gap: 28, padding: '30px 0', borderTop: '1px solid var(--rule)', borderBottom: i === steps.length - 1 ? '1px solid var(--rule)' : 'none', alignItems: 'baseline' }}>
               <span style={{ fontFamily: 'var(--serif)', fontSize: 44, fontWeight: 500, color: 'var(--granate)', lineHeight: 1 }}>0{i + 1}</span>
               <div>
-                <h3 style={{ fontSize: 24, fontWeight: 500, marginBottom: 8 }}>{t}</h3>
-                <p style={{ fontSize: 15.5, color: 'var(--ink-2)', lineHeight: 1.6 }}>{d}</p>
+                <h3 style={{ fontSize: 24, fontWeight: 500, marginBottom: 8 }}>{title}</h3>
+                <p style={{ fontSize: 15.5, color: 'var(--ink-2)', lineHeight: 1.6 }}>{desc}</p>
               </div>
             </div>
           ))}
@@ -662,35 +704,23 @@ function Approach() {
   );
 }
 
-function Team() {
+function Team({ lang }) {
+  const t = TEXTS[lang];
   const team = [
-    {
-      ini: 'AP', photo: 'antonio.jpg.jpg', name: 'Antoni Pons Rodríguez', title: 'Advocat',
-      bullets: [
-        'Llicenciat en Dret per la Universitat de Barcelona',
-        'Especialista en Dret Laboral, Civil i Família',
-        'Accidents de circulació',
-      ],
-      email: 'antoni@ponsadvocats.cat',
-    },
-    {
-      ini: 'MP', photo: 'mariona.jpg.jpg', name: 'Mariona Pons Rodríguez', title: 'Advocada',
-      bullets: [
-        'Llicenciada en Dret per la Universitat Autònoma de Barcelona',
-        'Màster en Dret Penal · Universitat de Barcelona',
-        'Màster en Dret Penal del Menor',
-        'Especialista en Dret Penal, Civil i Família',
-      ],
-      email: 'mariona@ponsadvocats.cat',
-    },
+    { ini: 'AP', photo: 'antonio.jpg.jpg', name: 'Antoni Pons Rodríguez', title: lang === 'ca' ? 'Advocat' : 'Abogado',
+      bullets: lang === 'ca'
+        ? ['Llicenciat en Dret per la Universitat de Barcelona','Especialista en Dret Laboral, Civil i Família','Accidents de circulació']
+        : ['Licenciado en Derecho por la Universitat de Barcelona','Especialista en Derecho Laboral, Civil y Familia','Accidentes de circulación'],
+      email: 'antoni@ponsadvocats.cat' },
+    { ini: 'MP', photo: 'mariona.jpg.jpg', name: 'Mariona Pons Rodríguez', title: lang === 'ca' ? 'Advocada' : 'Abogada',
+      bullets: lang === 'ca'
+        ? ['Llicenciada en Dret per la Universitat Autònoma de Barcelona','Màster en Dret Penal · Universitat de Barcelona','Màster en Dret Penal del Menor','Especialista en Dret Penal, Civil i Família']
+        : ['Licenciada en Derecho por la Universitat Autònoma de Barcelona','Máster en Derecho Penal · Universitat de Barcelona','Máster en Derecho Penal del Menor','Especialista en Derecho Penal, Civil y Familia'],
+      email: 'mariona@ponsadvocats.cat' },
   ];
   return (
     <Section bg="white">
-      <SectionHead
-        eyebrow="L'equip"
-        title={<>Una <em style={{ fontStyle: 'italic', color: 'var(--granate)' }}>família</em> dedicada al dret.</>}
-        lead="Dos advocats, un mateix despatx, una mateixa exigència. Cada client té un advocat assignat des del primer minut."
-      />
+      <SectionHead eyebrow={t.teamEyebrow} title={<>{t.teamTitle1} <em style={{ fontStyle: 'italic', color: 'var(--granate)' }}>{t.teamTitle2}</em> {t.teamTitle3}</>} lead={t.teamLead} />
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 48 }} className="team-grid">
         {team.map((p) => (
           <article key={p.ini} style={{ display: 'grid', gridTemplateColumns: '260px 1fr', gap: 36, padding: '8px 0' }} className="team-card">
@@ -703,8 +733,7 @@ function Team() {
               <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 10 }}>
                 {p.bullets.map((b) => (
                   <li key={b} style={{ display: 'flex', gap: 12, fontSize: 14.5, color: 'var(--ink-2)' }}>
-                    <span style={{ color: 'var(--granate)', flex: 'none' }}>—</span>
-                    <span>{b}</span>
+                    <span style={{ color: 'var(--granate)', flex: 'none' }}>—</span><span>{b}</span>
                   </li>
                 ))}
               </ul>
@@ -715,15 +744,13 @@ function Team() {
           </article>
         ))}
       </div>
-      <style>{`
-        @media (max-width: 980px) { .team-grid { grid-template-columns: 1fr !important; } }
-        @media (max-width: 540px) { .team-card { grid-template-columns: 1fr !important; } }
-      `}</style>
+      <style>{`@media (max-width: 980px) { .team-grid { grid-template-columns: 1fr !important; } } @media (max-width: 540px) { .team-card { grid-template-columns: 1fr !important; } }`}</style>
     </Section>
   );
 }
 
-function FinalCTA() {
+function FinalCTA({ go, lang }) {
+  const t = TEXTS[lang];
   return (
     <section style={{ background: 'var(--granate)', color: 'white', padding: '110px 0', position: 'relative', overflow: 'hidden' }}>
       <div style={{ position: 'absolute', right: -40, bottom: -120, fontFamily: 'var(--serif)', fontStyle: 'italic', fontSize: 'clamp(280px, 36vw, 540px)', color: 'rgba(255,255,255,0.06)', lineHeight: 0.8, pointerEvents: 'none', userSelect: 'none' }}>pons</div>
@@ -732,31 +759,19 @@ function FinalCTA() {
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 22 }}>
               <span style={{ width: 36, height: 1, background: 'rgba(255,255,255,0.6)' }} />
-              <span className="eyebrow" style={{ color: 'rgba(255,255,255,0.85)' }}>Primera consulta</span>
+              <span className="eyebrow" style={{ color: 'rgba(255,255,255,0.85)' }}>{t.ctaEyebrow}</span>
             </div>
-            <h2 style={{ fontSize: 'clamp(36px, 5vw, 60px)', color: 'white', fontWeight: 500, lineHeight: 1.05, marginBottom: 22 }}>
-              Necessites assessorament<br />jurídic?
-            </h2>
-            <p style={{ fontFamily: 'var(--serif)', fontStyle: 'italic', fontSize: 'clamp(18px, 1.7vw, 22px)', color: 'rgba(255,255,255,0.85)', maxWidth: 520, lineHeight: 1.5 }}>
-              Consulta'ns sense compromís. Et respondrem el més aviat possible.
-            </p>
+            <h2 style={{ fontSize: 'clamp(36px, 5vw, 60px)', color: 'white', fontWeight: 500, lineHeight: 1.05, marginBottom: 22, whiteSpace: 'pre-line' }}>{t.ctaTitle}</h2>
+            <p style={{ fontFamily: 'var(--serif)', fontStyle: 'italic', fontSize: 'clamp(18px, 1.7vw, 22px)', color: 'rgba(255,255,255,0.85)', maxWidth: 520, lineHeight: 1.5 }}>{t.ctaLead}</p>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
             <a href="tel:+34938707859" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '22px 26px', background: 'white', color: 'var(--granate)', fontWeight: 500, fontSize: 17, transition: 'opacity .2s' }}
-              onMouseEnter={(e) => e.currentTarget.style.opacity = '0.9'}
-              onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}>
-              <span style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-                <Icon.phone width="20" height="20" /> Truca'ns · 93 870 78 59
-              </span>
-              <Icon.arrow />
+              onMouseEnter={(e) => e.currentTarget.style.opacity = '0.9'} onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}>
+              <span style={{ display: 'flex', alignItems: 'center', gap: 14 }}><Icon.phone width="20" height="20" /> {t.callFull}</span><Icon.arrow />
             </a>
             <a href="https://wa.me/34938707859" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '22px 26px', background: 'transparent', border: '1px solid rgba(255,255,255,0.5)', color: 'white', fontWeight: 500, fontSize: 17, transition: 'all .2s' }}
-              onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,0.1)'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; }}>
-              <span style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-                <Icon.whatsapp width="20" height="20" /> Escriu-nos per WhatsApp
-              </span>
-              <Icon.arrow />
+              onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,0.1)'; }} onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; }}>
+              <span style={{ display: 'flex', alignItems: 'center', gap: 14 }}><Icon.whatsapp width="20" height="20" /> {t.waFull}</span><Icon.arrow />
             </a>
           </div>
         </div>
@@ -766,20 +781,20 @@ function FinalCTA() {
   );
 }
 
-function HomePage({ go }) {
+function HomePage({ go, lang, areas }) {
   return (
     <div className="page-enter">
-      <Hero go={go} />
-      <Trust />
-      <AreasOverview go={go} />
-      <Approach />
-      <Team />
-      <FinalCTA />
+      <Hero go={go} lang={lang} />
+      <Trust lang={lang} />
+      <AreasOverview go={go} lang={lang} areas={areas} />
+      <Approach lang={lang} />
+      <Team lang={lang} />
+      <FinalCTA go={go} lang={lang} />
     </div>
   );
 }
 
-// ─── AREA PAGE ───────────────────────────────────────────────────────────────
+// ─── AREA PAGE ────────────────────────────────────────────────────────────────
 function ServiceRow({ number, title, desc }) {
   const [open, setOpen] = React.useState(false);
   return (
@@ -799,79 +814,67 @@ function ServiceRow({ number, title, desc }) {
   );
 }
 
-function AreaPage({ areaId, go }) {
-  const a = AREAS.find((x) => x.id === areaId);
+function AreaPage({ areaId, go, lang, areas }) {
+  const t = TEXTS[lang];
+  const a = areas.find((x) => x.id === areaId);
   if (!a) return null;
   const I = Icon[a.icon];
-  const idx = AREAS.findIndex((x) => x.id === areaId);
-  const next = AREAS[(idx + 1) % AREAS.length];
-
+  const idx = areas.findIndex((x) => x.id === areaId);
+  const next = areas[(idx + 1) % areas.length];
   return (
     <div className="page-enter">
       <section style={{ background: 'var(--ink)', color: 'white', padding: '120px 0 100px', position: 'relative', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', right: '-4%', top: '-10%', fontFamily: 'var(--serif)', fontStyle: 'italic', fontSize: 'clamp(220px, 30vw, 460px)', color: 'rgba(139,26,47,0.45)', lineHeight: 0.8, pointerEvents: 'none', userSelect: 'none', fontWeight: 400 }}>{a.label}</div>
         <div className="container" style={{ position: 'relative' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12, fontSize: 12, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.6)', marginBottom: 36 }}>
-            <a href="#home" onClick={(e) => { e.preventDefault(); go('home'); }} style={{ color: 'inherit' }}>Inici</a>
-            <span>/</span><span>Àrees</span><span>/</span>
+            <a href="#home" onClick={(e) => { e.preventDefault(); go('home'); }} style={{ color: 'inherit' }}>{t.navHome}</a>
+            <span>/</span><span>{t.footerAreas}</span><span>/</span>
             <span style={{ color: 'white' }}>{a.label}</span>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: '80px 1fr', gap: 28, alignItems: 'flex-start' }} className="area-hero-grid">
             <div style={{ color: 'var(--granate-soft)', paddingTop: 8 }}><I width="56" height="56" /></div>
             <div>
-              <span className="eyebrow" style={{ color: 'rgba(255,255,255,0.8)', display: 'block', marginBottom: 18 }}>
-                Àrea 0{idx + 1} / 05
-              </span>
+              <span className="eyebrow" style={{ color: 'rgba(255,255,255,0.8)', display: 'block', marginBottom: 18 }}>{t.areaLabel} 0{idx + 1} {t.areaOf}</span>
               <h1 style={{ fontSize: 'clamp(48px, 7vw, 96px)', color: 'white', fontWeight: 500, lineHeight: 1.0, letterSpacing: '-0.02em', marginBottom: 24 }}>{a.title}</h1>
               <p style={{ fontFamily: 'var(--serif)', fontStyle: 'italic', fontSize: 'clamp(20px, 2vw, 28px)', color: 'rgba(255,255,255,0.85)', maxWidth: 700, lineHeight: 1.4 }}>{a.tagline}</p>
             </div>
           </div>
         </div>
       </section>
-
       <Section bg="white" tight>
         <div style={{ display: 'grid', gridTemplateColumns: '0.4fr 1fr', gap: 64 }} className="intro-grid">
-          <div className="eyebrow">L'àrea</div>
+          <div className="eyebrow">{t.areaSection}</div>
           <p style={{ fontFamily: 'var(--serif)', fontSize: 'clamp(22px, 2.4vw, 32px)', color: 'var(--ink)', lineHeight: 1.4, fontWeight: 400, maxWidth: 880 }}>{a.intro}</p>
         </div>
         <style>{`@media (max-width: 740px) { .intro-grid { grid-template-columns: 1fr !important; gap: 16px !important; } }`}</style>
       </Section>
-
       <Section bg="bone">
-        <SectionHead eyebrow="Serveis" title={<>Com <em style={{ fontStyle: 'italic', color: 'var(--granate)' }}>t'ajudem</em></>} />
+        <SectionHead eyebrow={t.servicesEyebrow} title={<>{t.servicesTitle1} <em style={{ fontStyle: 'italic', color: 'var(--granate)' }}>{t.servicesTitle2}</em></>} />
         <div style={{ background: 'white', borderTop: '1px solid var(--rule)' }}>
-          {a.services.map(([t, d], i) => (
-            <ServiceRow key={t} number={i + 1} title={t} desc={d} />
-          ))}
+          {a.services.map(([title, desc], i) => <ServiceRow key={title} number={i + 1} title={title} desc={desc} />)}
         </div>
       </Section>
-
       <Section bg="white" tight>
         <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 60, alignItems: 'center', padding: '20px 0' }} className="area-cta">
           <h2 style={{ fontSize: 'clamp(28px, 3.6vw, 44px)', fontWeight: 500, lineHeight: 1.15, maxWidth: 720 }}>{a.cta}</h2>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-            <PrimaryButton href="tel:+34938707859" icon={<Icon.phone width="16" height="16" />} style={{ justifyContent: 'space-between' }}>
-              Truca'ns · 93 870 78 59
-            </PrimaryButton>
-            <GhostButton href="https://wa.me/34938707859" icon={<Icon.whatsapp width="16" height="16" />} style={{ justifyContent: 'space-between' }}>
-              WhatsApp
-            </GhostButton>
+            <PrimaryButton href="tel:+34938707859" icon={<Icon.phone width="16" height="16" />} style={{ justifyContent: 'space-between' }}>{t.callFull}</PrimaryButton>
+            <GhostButton href="https://wa.me/34938707859" icon={<Icon.whatsapp width="16" height="16" />} style={{ justifyContent: 'space-between' }}>{t.waBtn}</GhostButton>
           </div>
         </div>
         <style>{`@media (max-width: 820px) { .area-cta { grid-template-columns: 1fr !important; } }`}</style>
       </Section>
-
       <a href={`#${next.id}`} onClick={(e) => { e.preventDefault(); go(next.id); }}
         style={{ display: 'block', borderTop: '1px solid var(--rule)', padding: '60px 0', background: 'var(--bone)', transition: 'background .25s ease' }}
         onMouseEnter={(e) => e.currentTarget.style.background = 'var(--bone-2)'}
         onMouseLeave={(e) => e.currentTarget.style.background = 'var(--bone)'}>
         <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 24, flexWrap: 'wrap' }}>
           <div>
-            <div className="eyebrow" style={{ marginBottom: 10 }}>Següent àrea</div>
+            <div className="eyebrow" style={{ marginBottom: 10 }}>{t.nextArea}</div>
             <div style={{ fontFamily: 'var(--serif)', fontSize: 'clamp(28px, 3.4vw, 44px)', fontWeight: 500 }}>{next.title}</div>
           </div>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: 14, color: 'var(--granate)', fontSize: 14, letterSpacing: '0.04em', textTransform: 'uppercase', fontWeight: 500 }}>
-            Continua llegint <Icon.arrow />
+            {t.continueReading} <Icon.arrow />
           </div>
         </div>
       </a>
@@ -879,7 +882,7 @@ function AreaPage({ areaId, go }) {
   );
 }
 
-// ─── CONTACT PAGE ────────────────────────────────────────────────────────────
+// ─── CONTACT PAGE ─────────────────────────────────────────────────────────────
 function ContactRow({ icon, label, children }) {
   return (
     <div style={{ display: 'grid', gridTemplateColumns: '52px 1fr', gap: 20, alignItems: 'flex-start' }}>
@@ -892,89 +895,58 @@ function ContactRow({ icon, label, children }) {
   );
 }
 
-function ContactPage({ go }) {
+function ContactPage({ lang }) {
+  const t = TEXTS[lang];
   return (
     <div className="page-enter">
       <section style={{ background: 'var(--paper)', borderBottom: '1px solid var(--rule)', padding: '110px 0 90px', position: 'relative', overflow: 'hidden' }}>
         <div className="container">
           <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 22 }}>
             <span style={{ width: 36, height: 1, background: 'var(--granate)' }} />
-            <span className="eyebrow">Contacte</span>
+            <span className="eyebrow">{t.contactEyebrow}</span>
           </div>
           <h1 style={{ fontSize: 'clamp(48px, 7vw, 96px)', fontWeight: 500, letterSpacing: '-0.015em', lineHeight: 1.0, maxWidth: 980 }}>
-            Parla amb nosaltres.<br />
-            <em style={{ fontStyle: 'italic', color: 'var(--granate)' }}>La primera consulta no costa.</em>
+            {t.contactTitle1}<br /><em style={{ fontStyle: 'italic', color: 'var(--granate)' }}>{t.contactTitle2}</em>
           </h1>
         </div>
       </section>
-
       <Section bg="white">
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 0, border: '1px solid var(--rule)' }} className="contact-grid">
           <div style={{ padding: 'clamp(40px, 5vw, 64px)', borderRight: '1px solid var(--rule)', display: 'flex', flexDirection: 'column', gap: 36 }} className="contact-info">
-            <ContactRow icon={<Icon.pin />} label="Adreça">
-              C/ Lliri, 23<br />08402 Granollers, Barcelona
-            </ContactRow>
-            <ContactRow icon={<Icon.phone />} label="Telèfon">
-              <a href="tel:+34938707859" style={{ color: 'var(--granate)' }}>93 870 78 59</a>
-            </ContactRow>
-            <ContactRow icon={<Icon.mail />} label="Email">
+            <ContactRow icon={<Icon.pin />} label={t.addressLabel}>C/ Lliri, 23<br />08402 Granollers, Barcelona</ContactRow>
+            <ContactRow icon={<Icon.phone />} label={t.phoneLabel}><a href="tel:+34938707859" style={{ color: 'var(--granate)' }}>93 870 78 59</a></ContactRow>
+            <ContactRow icon={<Icon.mail />} label={t.emailLabel}>
               <a href="mailto:antoni@ponsadvocats.cat" style={{ display: 'block', color: 'var(--ink)' }}>antoni@ponsadvocats.cat</a>
               <a href="mailto:mariona@ponsadvocats.cat" style={{ display: 'block', color: 'var(--ink)' }}>mariona@ponsadvocats.cat</a>
             </ContactRow>
-            <ContactRow icon={<Icon.doc />} label="Horari">
-              Dilluns a divendres<br />
-              9.00 — 14.00 · 16.00 — 19.00<br />
-              <span style={{ color: 'var(--ink-3)', fontSize: 13 }}>Visita amb cita prèvia recomanada.</span>
+            <ContactRow icon={<Icon.doc />} label={t.hoursLabel}>
+              {t.hoursVal}<br />{t.hoursVal2}<br />
+              <span style={{ color: 'var(--ink-3)', fontSize: 13 }}>{t.hoursNote}</span>
             </ContactRow>
           </div>
           <div style={{ padding: 'clamp(40px, 5vw, 64px)', background: 'var(--bone)', display: 'flex', flexDirection: 'column', gap: 16, justifyContent: 'center' }}>
             <h2 style={{ fontSize: 'clamp(28px, 3.4vw, 40px)', fontWeight: 500, marginBottom: 18, lineHeight: 1.15 }}>
-              Tria com prefereixes <em style={{ fontStyle: 'italic', color: 'var(--granate)' }}>parlar amb nosaltres</em>.
+              {t.contactCta} <em style={{ fontStyle: 'italic', color: 'var(--granate)' }}>{t.contactCta2}</em>.
             </h2>
-            <a href="tel:+34938707859"
-              style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '22px 26px', background: 'var(--granate)', color: 'white', fontWeight: 500, fontSize: 16, letterSpacing: '0.01em', transition: 'background .2s' }}
-              onMouseEnter={(e) => e.currentTarget.style.background = 'var(--granate-deep)'}
-              onMouseLeave={(e) => e.currentTarget.style.background = 'var(--granate)'}>
-              <span style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-                <Icon.phone width="20" height="20" /> Truca'ns · 93 870 78 59
-              </span>
-              <Icon.arrow />
+            <a href="tel:+34938707859" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '22px 26px', background: 'var(--granate)', color: 'white', fontWeight: 500, fontSize: 16, transition: 'background .2s' }}
+              onMouseEnter={(e) => e.currentTarget.style.background = 'var(--granate-deep)'} onMouseLeave={(e) => e.currentTarget.style.background = 'var(--granate)'}>
+              <span style={{ display: 'flex', alignItems: 'center', gap: 14 }}><Icon.phone width="20" height="20" /> {t.callFull}</span><Icon.arrow />
             </a>
-            <a href="https://wa.me/34938707859"
-              style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '22px 26px', background: 'white', border: '1px solid var(--granate)', color: 'var(--granate)', fontWeight: 500, fontSize: 16, transition: 'all .2s' }}
-              onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--granate)'; e.currentTarget.style.color = 'white'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.background = 'white'; e.currentTarget.style.color = 'var(--granate)'; }}>
-              <span style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-                <Icon.whatsapp width="20" height="20" /> Escriu-nos per WhatsApp
-              </span>
-              <Icon.arrow />
+            <a href="https://wa.me/34938707859" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '22px 26px', background: 'white', border: '1px solid var(--granate)', color: 'var(--granate)', fontWeight: 500, fontSize: 16, transition: 'all .2s' }}
+              onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--granate)'; e.currentTarget.style.color = 'white'; }} onMouseLeave={(e) => { e.currentTarget.style.background = 'white'; e.currentTarget.style.color = 'var(--granate)'; }}>
+              <span style={{ display: 'flex', alignItems: 'center', gap: 14 }}><Icon.whatsapp width="20" height="20" /> {t.waFull}</span><Icon.arrow />
             </a>
-            <p style={{ fontSize: 13, color: 'var(--ink-3)', marginTop: 14, lineHeight: 1.5 }}>
-              També pots passar pel despatx en horari d'atenció. Recomanem demanar cita per garantir una atenció personalitzada.
-            </p>
+            <p style={{ fontSize: 13, color: 'var(--ink-3)', marginTop: 14, lineHeight: 1.5 }}>{t.contactNote}</p>
           </div>
         </div>
-        <style>{`
-          @media (max-width: 820px) {
-            .contact-grid { grid-template-columns: 1fr !important; }
-            .contact-info { border-right: none !important; border-bottom: 1px solid var(--rule); }
-          }
-        `}</style>
+        <style>{`@media (max-width: 820px) { .contact-grid { grid-template-columns: 1fr !important; } .contact-info { border-right: none !important; border-bottom: 1px solid var(--rule); } }`}</style>
       </Section>
-
       <section style={{ borderTop: '1px solid var(--rule)' }}>
         <div style={{ position: 'relative', height: 460 }}>
-          <iframe
-            title="Mapa Pons Advocats"
-            src="https://www.openstreetmap.org/export/embed.html?bbox=2.282%2C41.604%2C2.293%2C41.609&layer=mapnik&marker=41.6065%2C2.2875"
-            style={{ width: '100%', height: '100%', border: 0, filter: 'grayscale(0.85) contrast(1.05)' }}
-            loading="lazy"
-          />
+          <iframe title="Mapa Pons Advocats" src="https://www.openstreetmap.org/export/embed.html?bbox=2.282%2C41.604%2C2.293%2C41.609&layer=mapnik&marker=41.6065%2C2.2875" style={{ width: '100%', height: '100%', border: 0, filter: 'grayscale(0.85) contrast(1.05)' }} loading="lazy" />
           <div style={{ position: 'absolute', top: 24, left: 24, background: 'var(--granate)', color: 'white', padding: '20px 28px', maxWidth: 280, boxShadow: '0 12px 30px rgba(0,0,0,0.18)' }}>
-            <div className="eyebrow" style={{ color: 'rgba(255,255,255,0.85)', marginBottom: 8 }}>Despatx</div>
-            <div style={{ fontFamily: 'var(--serif)', fontSize: 22, fontWeight: 500, lineHeight: 1.2 }}>
-              C/ Lliri, 23<br />Granollers
-            </div>
+            <div className="eyebrow" style={{ color: 'rgba(255,255,255,0.85)', marginBottom: 8 }}>{t.mapLabel}</div>
+            <div style={{ fontFamily: 'var(--serif)', fontSize: 22, fontWeight: 500, lineHeight: 1.2 }}>C/ Lliri, 23<br />Granollers</div>
           </div>
         </div>
       </section>
@@ -982,21 +954,28 @@ function ContactPage({ go }) {
   );
 }
 
-// ─── APP ─────────────────────────────────────────────────────────────────────
+// ─── APP ──────────────────────────────────────────────────────────────────────
 function App() {
   const [page, setPage] = React.useState('home');
+  const [lang, setLang] = React.useState('ca');
+
+  const areas = AREAS_DATA[lang];
 
   React.useEffect(() => {
     const fromHash = () => {
       const h = (window.location.hash || '#home').slice(1);
-      const valid = ['home', 'contacte', ...AREAS.map(a => a.id)];
-      setPage(valid.includes(h) ? h : 'home');
+      const validIds = ['home', 'contacte', ...AREAS_DATA.ca.map(a => a.id)];
+      setPage(validIds.includes(h) ? h : 'home');
       window.scrollTo({ top: 0, behavior: 'instant' });
     };
     fromHash();
     window.addEventListener('hashchange', fromHash);
     return () => window.removeEventListener('hashchange', fromHash);
   }, []);
+
+  React.useEffect(() => {
+    document.documentElement.lang = lang;
+  }, [lang]);
 
   const go = (id) => {
     window.location.hash = id;
@@ -1005,15 +984,15 @@ function App() {
   };
 
   let pageEl;
-  if (page === 'home') pageEl = <HomePage go={go} />;
-  else if (page === 'contacte') pageEl = <ContactPage go={go} />;
-  else pageEl = <AreaPage areaId={page} go={go} />;
+  if (page === 'home') pageEl = <HomePage go={go} lang={lang} areas={areas} />;
+  else if (page === 'contacte') pageEl = <ContactPage lang={lang} />;
+  else pageEl = <AreaPage areaId={page} go={go} lang={lang} areas={areas} />;
 
   return (
     <div>
-      <Header current={page} go={go} />
+      <Header current={page} go={go} lang={lang} setLang={setLang} areas={areas} />
       <main>{pageEl}</main>
-      <Footer go={go} />
+      <Footer go={go} lang={lang} areas={areas} />
     </div>
   );
 }
