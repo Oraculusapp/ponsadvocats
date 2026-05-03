@@ -112,6 +112,8 @@ const TEXTS = {
     footerAddr: 'C/ Lliri, 23 · Granollers · Barcelona',
     dretPrefix: 'Dret ',
     mapLabel: 'Despatx',
+    aiCredit: 'Web d\'última generació impulsada per IA',
+    aiBy: 'Web i SEO per',
   },
   es: {
     since: 'Granollers · Desde 1985',
@@ -184,6 +186,8 @@ const TEXTS = {
     footerAddr: 'C/ Lliri, 23 · Granollers · Barcelona',
     dretPrefix: 'Derecho ',
     mapLabel: 'Despacho',
+    aiCredit: 'Web de última generación impulsada por IA',
+    aiBy: 'Web y SEO por',
   },
   en: {
     since: 'Granollers · Since 1985',
@@ -256,6 +260,8 @@ const TEXTS = {
     footerAddr: 'C/ Lliri, 23 · Granollers · Barcelona',
     dretPrefix: '',
     mapLabel: 'Office',
+    aiCredit: 'Next-generation website powered by AI',
+    aiBy: 'Web & SEO by',
   },
 };
 
@@ -702,6 +708,28 @@ function Footer({ go, lang, areas }) {
         <div style={{ marginTop: 56, paddingTop: 24, borderTop: '1px solid rgba(255,255,255,0.12)', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12, fontSize: 12, letterSpacing: '0.04em', color: 'rgba(255,255,255,0.45)' }}>
           <div>{t.footerCopy}</div>
           <div>{t.footerAddr}</div>
+        </div>
+
+        {/* AI credit strip */}
+        <div style={{ marginTop: 24, paddingTop: 20, borderTop: '1px solid rgba(255,255,255,0.07)', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 7, fontSize: 11, letterSpacing: '0.06em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.3)' }}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--granate-soft)', flexShrink: 0 }}>
+              <rect x="4" y="4" width="16" height="16" rx="2"/>
+              <rect x="9" y="9" width="6" height="6"/>
+              <path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/>
+            </svg>
+            {t.aiCredit}
+          </span>
+          <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.2)' }}>·</span>
+          <span style={{ fontSize: 11, letterSpacing: '0.06em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.3)' }}>
+            {t.aiBy}{' '}
+            <a href="https://actualinternet.com" target="_blank" rel="noopener noreferrer"
+              style={{ color: 'var(--granate-soft)', fontWeight: 600, letterSpacing: '0.08em', transition: 'color .2s' }}
+              onMouseEnter={(e) => e.currentTarget.style.color = 'white'}
+              onMouseLeave={(e) => e.currentTarget.style.color = 'var(--granate-soft)'}>
+              actualinternet.com
+            </a>
+          </span>
         </div>
       </div>
       <style>{`@media (max-width: 880px) { .foot-col { grid-column: span 12 !important; } }`}</style>
